@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chartboost.sdk.sample.SelectionActivity"
+    android:background="@color/navy40">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsButton"
+        android:layout_gravity="right"
+        android:textColor="@color/green80"
+        android:background="@android:drawable/ic_menu_preferences"
+        android:backgroundTint="@color/green80"
+        android:layout_margin="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logowhite"
+        android:padding="20dp"
+        android:layout_above="@+id/tableLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:id="@+id/tableLayout"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TableRow>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="93dp"
+                android:text="@string/InterstitialsButton"
+                android:id="@+id/interstitialButton"
+                android:padding="10dp"
+                android:background="@color/green80"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="93dp"
+                android:text="@string/RewardedVideoButton"
+                android:id="@+id/rewardedButton"
+                android:padding="10dp"
+                android:background="@color/green80"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="93dp"
+                android:text="@string/BannerButton"
+                android:id="@+id/bannerButton"
+                android:background="@color/green80"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="93dp"
+                android:text="@string/InPlayButton"
+                android:id="@+id/inPlayButton"
+                android:background="@color/green80"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"/>
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

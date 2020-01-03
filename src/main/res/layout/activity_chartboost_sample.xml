@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChartboostSample">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/navy40"
+        android:orientation="horizontal"
+        android:id="@+id/header">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:id="@+id/backButton"
+            android:layout_centerVertical="true"
+            android:textColor="@color/green80"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:id="@+id/title"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/green80"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/settingsButton"
+            android:layout_gravity="right"
+            android:textColor="@color/green80"
+            android:background="@android:drawable/ic_menu_preferences"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/green80"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp"
+        android:id="@+id/relativeLayout"
+        android:layout_margin="2dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cache"
+            android:id="@+id/cacheButton"
+            android:background="@color/green80"
+            android:textColor="@android:color/white"
+            android:layout_margin="2dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/show"
+            android:id="@+id/showButton"
+            android:background="@color/green80"
+            android:textColor="@android:color/white"
+            android:layout_margin="2dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/clear"
+            android:id="@+id/clearButton"
+            android:background="@color/green80"
+            android:textColor="@android:color/white"
+            android:layout_margin="2dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_above="@+id/LocationView">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:id="@+id/logText"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:maxLines="100"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:background="@color/navy40"
+            android:textColor="@color/green80"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/LocationView"
+        android:background="@color/slate40"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_alignEnd="@+id/relativeLayout2"
+        android:layout_marginBottom="2dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_label"
+                android:layout_gravity="center_vertical"/>
+
+            <Spinner
+                android:id="@+id/locationSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:entries="@array/locations"
+                android:prompt="@string/location"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/has"
+                android:id="@+id/hasLabel"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_0"
+                android:layout_centerVertical="true"
+                android:id="@+id/hasText"
+                android:layout_toRightOf="@+id/hasLabel"
+                android:layout_toEndOf="@+id/hasLabel" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/slate40"
+        android:id="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"
+            android:layout_margin="5dp">
+
+            <TableRow android:layout_weight="1.0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/display"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/displayCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/fail_click"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/failClickCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/click"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/clickCounter"/>
+
+            </TableRow>
+
+            <TableRow android:layout_weight="1.0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/cache_label"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/cacheCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/dismiss"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/dismissCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/complete"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/completeCounter"/>
+
+            </TableRow>
+
+            <TableRow android:layout_weight="1.0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/fail_load"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/failLoadCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/close"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/closeCounter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/reward"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:id="@+id/rewardCounter"/>
+
+            </TableRow>
+
+        </TableLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/inPlayAd"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+        <ImageButton
+            android:id="@+id/inPlayIcon"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@null" />
+        <ImageButton
+            android:id="@+id/inPlayCloseButton"
+            android:layout_alignTop="@id/inPlayIcon"
+            android:layout_alignRight="@id/inPlayIcon"
+            android:layout_alignEnd="@+id/inPlayIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_menu_close_clear_cancel"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

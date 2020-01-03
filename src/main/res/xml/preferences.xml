@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:title="Lock Orientation"
+        android:defaultValue="false"
+        android:key="@string/key_lock_orientation"
+        android:id="@+id/lockOrientationPreference" />
+
+    <SwitchPreference
+        android:title="Request interstitials in first session"
+        android:defaultValue="true"
+        android:key="@string/key_request_interstitial_in_first_session"
+        android:id="@+id/setShouldRequestInterstitialsInFirstSessionPreference"/>
+
+    <SwitchPreference
+        android:title="Prefetch Video Content"
+        android:defaultValue="true"
+        android:key="@string/key_enable_video_prefetch"
+        android:id="@+id/setShouldPrefetchVideoContentPreference"/>
+
+    <SwitchPreference
+        android:title="Auto Cache Ads"
+        android:defaultValue="true"
+        android:key="@string/key_enable_autocache"
+        android:id="@+id/setAutoCacheAdsPreference"/>
+
+</PreferenceScreen>

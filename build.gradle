@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.2'
+    }
+}
+
+ext {
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+    googlePlayServicesVersion = '15.0.1'
+    supportLibraryVersion = '28.0.0'
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url  "https://chartboostmobile.bintray.com/Chartboost" }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'com.chartboost:chartboost-sdk:8.0.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
+        exclude group: 'com.android.support'
+    }
+    implementation ("com.google.android.gms:play-services-ads-identifier:$project.ext.googlePlayServicesVersion"){
+        exclude group: 'com.android.support'
+    }
+}
+
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.chartboost.sdk.sample"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 6
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false  // FIXME - should clean up proguard for this sample app
+            proguardFiles 'proguard-project.txt'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+}

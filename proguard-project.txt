@@ -1,0 +1,9 @@
+
+# require for chartboost
+-dontwarn com.amazon.**
+-dontwarn org.apache.http.**
+-dontwarn com.chartboost.sdk.impl.**
+-keep class com.chartboost.sdk.** { *; }
+-keep class com.amazon.** {*;}
+-keepattributes *Annotation*
+

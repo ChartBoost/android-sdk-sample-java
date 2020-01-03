@@ -1,0 +1,57 @@
+#IDE
+.idea
+.gradle
+*.iml
+**/build/*
+
+# android files
+*.apk
+*.ap_
+bin/
+gen/
+*/obj/
+
+# roboelectric
+*/tmp/
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# memory captures
+captures/
+# gitignore
+.metadata/
+.history
+.DS_Store
+*/NUL
+.settings
+local.properties
+CBSandbox.iml___jb_bak___
+
+# built products
+CBSandbox/libs/chartboostdata.jar
+CBSandbox/lib/chartboost.jar
+CBSandbox/libs/armeabi/
+CBSandbox/libs/armeabi-v7a/
+CBSandbox/libs/x86/
+ChartboostExampleApp/libs/
+ChartboostExampleApp/.idea
+ChartboostExampleApp/proguard/
+InAppPurchase/libs/
+CBSampleStore/libs/
+Chartboost/lib/
+Chartboost/lib-store/
+Chartboost/process/
+Chartboost/process_store/
+Chartboost/proguard/chartboost.dump
+Chartboost/proguard/chartboost.map
+Chartboost/proguard/chartboost-store.map
+Chartboost/proguard/symbols-actual.txt
+Chartboost/proguard/symbols-diff.txt
+Chartboost/local.properties
+ReleaseCandidateArtifacts
+BuildArtifacts
+deploy/

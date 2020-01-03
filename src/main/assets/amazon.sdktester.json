@@ -1,0 +1,9 @@
+{
+"com.example.inappdemo.fireworks" : {
+    "itemType": "CONSUMABLE",
+    "price": 0.99,
+    "title": "Chartboost Image",
+    "description": "Chartboost IAP test for amazon",
+    "smallIconUrl": "http://some/image.jpg"
+  }
+}

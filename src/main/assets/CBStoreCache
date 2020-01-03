@@ -1,0 +1,55 @@
+{
+    "iaps": {
+        "iaps": [
+            "com.chartboost.coffeemug.tier_one",
+            "com.chartboost.coffeemug.tier_two",
+            "com.chartboost.coffeemug.tier_four",
+            "com.chartboost.coffeemug.tier_five",
+            "com.chartboost.coffeemug.tier_six",
+            "com.chartboost.coffeemug.tier_three"
+        ]
+    },
+
+    "balances": {
+        "coins":500,
+        "gold":400
+    },
+
+    "view-boosts": {
+        "items": [
+            {
+                "meta": {
+                    "tags":[],
+                    "description":"a company that helps bring in the green",
+                    "icf":"",
+                    "icon":""
+                },
+                "purchased":false,
+                "id":"51a66a4ed987d7192e000030",
+                "name":"Chartboost",
+                "iap":{"id":"51a669a5d987d71926000040",
+                    "iap_id":"com.chartboost.coffeemug.tier_one",
+                    "tier":1},
+                "purchase":"iap",
+                "reward":"consumable"
+            },
+            {
+                "meta": {
+                    "tags":[],
+                    "description":"A refreshing belgian beer.",
+                    "icf":"",
+                    "icon":""
+                },
+                "purchased":false,
+                "id":"519b02258277e01668000006",
+                "amount":200,
+                "name":"Stella Artois :)",
+                "reward_currency":"coins",
+                "reward":"currency",
+                "reward_amount":0,
+                "purchase":"currency",
+                "currency":"coins"
+            }
+        ]
+    }
+}

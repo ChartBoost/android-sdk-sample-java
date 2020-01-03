@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations">
+        <item>Default</item>
+        <item>Startup</item>
+        <item>Home Screen</item>
+        <item>Main Menu</item>
+        <item>Game Screen</item>
+        <item>Achievements</item>
+        <item>Quests</item>
+        <item>Pause</item>
+    </string-array>
+</resources>

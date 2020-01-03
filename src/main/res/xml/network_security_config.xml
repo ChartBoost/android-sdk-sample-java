@@ -1,0 +1,18 @@
+<network-security-config>
+    <debug-overrides>
+        <trust-anchors>
+            <!-- Trust user added CAs while debuggable only -->
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">live.chartboost.com</domain>
+        <domain includeSubdomains="true">t3.chartboost.com</domain>
+        <domain includeSubdomains="true">t2.chartboost.com</domain>
+        <domain includeSubdomains="true">api.chartboost.com</domain>
+        <domain includeSubdomains="true">a.chartboost.com</domain>
+        <domain includeSubdomains="true">charles.map</domain>
+        <domain includeSubdomains="true">da.chartboost.com</domain>
+    </domain-config>
+</network-security-config>
