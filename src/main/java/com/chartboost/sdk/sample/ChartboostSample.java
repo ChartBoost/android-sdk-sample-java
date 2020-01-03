@@ -1,6 +1,5 @@
 package com.chartboost.sdk.sample;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,18 +18,7 @@ import com.chartboost.sdk.InPlay.CBInPlay;
 
 public class ChartboostSample extends BaseSample {
 
-    private final String TAG = "ChartboostSample";
-
-    public static Activity activity;
-
     protected final static String impressionTypeKey = "IMPRESSION_TYPE_KEY";
-
-    // Button
-    private Button backButton;
-    private Button cacheButton;
-    private Button showButton;
-    private Button clearButton;
-    private ImageButton settingsButton;
 
     // In Play
     private ImageButton inPlayIcon;
@@ -43,8 +31,6 @@ public class ChartboostSample extends BaseSample {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_chartboost_sample);
-
-        activity = this;
 
         title = (TextView) findViewById(R.id.title);
 
@@ -85,11 +71,12 @@ public class ChartboostSample extends BaseSample {
         hasLocation = (TextView) findViewById(R.id.hasText);
 
         // Buttons
-        backButton = (Button) findViewById(R.id.backButton);
-        cacheButton = (Button) findViewById(R.id.cacheButton);
-        showButton = (Button) findViewById(R.id.showButton);
-        clearButton = (Button) findViewById(R.id.clearButton);
-        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        // Button
+        Button backButton = (Button) findViewById(R.id.backButton);
+        Button cacheButton = (Button) findViewById(R.id.cacheButton);
+        Button showButton = (Button) findViewById(R.id.showButton);
+        Button clearButton = (Button) findViewById(R.id.clearButton);
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
 
         // In Play
         inPlayIcon = (ImageButton) findViewById(R.id.inPlayIcon);
@@ -103,7 +90,6 @@ public class ChartboostSample extends BaseSample {
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Chartboost.setActivityAttrs(ChartboostSample.this);
                 location = parentView.getItemAtPosition(position).toString();
                 hasLocation.setText(isAdReadyToDisplay(location) ? "Yes" : "No");
                 addToUILog("Location changed to " + location);
@@ -117,104 +103,79 @@ public class ChartboostSample extends BaseSample {
 
         addToUILog("Using Chartboost v" + Chartboost.getSDKVersion());
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                startActivity(new Intent(ChartboostSample.this, SelectionActivity.class));
+        backButton.setOnClickListener(v -> {
+            finish();
+            startActivity(new Intent(ChartboostSample.this, SelectionActivity.class));
+        });
+
+        settingsButton.setOnClickListener(v -> startActivity(new Intent(ChartboostSample.this, SettingsActivity.class)));
+
+        cacheButton.setOnClickListener(v -> {
+            switch (impressionType){
+                case INTERSTITIAL:
+                    Chartboost.cacheInterstitial(location);
+                    break;
+                case REWARDED:
+                    Chartboost.cacheRewardedVideo(location);
+                    break;
+                case IN_PLAY:
+                    CBInPlay.cacheInPlay(location);;
+                    break;
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ChartboostSample.this, SettingsActivity.class));
-            }
-        });
+        showButton.setOnClickListener(v -> {
+            switch (impressionType){
+                case INTERSTITIAL:
+                    Chartboost.showInterstitial(location);
+                    break;
 
-        cacheButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (impressionType){
-                    case INTERSTITIAL:
-                        Chartboost.cacheInterstitial(location);
-                        break;
-                    case REWARDED:
-                        Chartboost.cacheRewardedVideo(location);
-                        break;
-                    case IN_PLAY:
-                        CBInPlay.cacheInPlay(location);;
-                        break;
-                }
-            }
-        });
+                case REWARDED:
+                    Chartboost.showRewardedVideo(location);
+                    break;
 
-        showButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (impressionType){
-                    case INTERSTITIAL:
-                        Chartboost.showInterstitial(location);
+                case IN_PLAY:
+                    final CBInPlay inPlay = CBInPlay.getInPlay(location);
+                    if (inPlay == null) {
+                        addToUILog("In Play was not ready at " + location);
                         break;
+                    }
+                    Bitmap inPlayBitmap = null;
+                    try {
+                        inPlayBitmap = inPlay.getAppIcon();
+                    } catch (Exception ex) {
+                        String exceptionAsString = Log.getStackTraceString(ex);
 
-                    case REWARDED:
-                        Chartboost.showRewardedVideo(location);
+                        addToUILog(exceptionAsString);
+                    }
+                    if (inPlayBitmap == null) {
+                        addToUILog("Unable to get InPlay bitmap at " + location);
                         break;
+                    }
+                    inPlayIcon.setImageBitmap(inPlayBitmap);
+                    inPlayAd.setVisibility(View.VISIBLE);
+                    inPlay.show();
+                    addToUILog("In Play shown at " + location);
+                    inPlayShowing = true;
 
-                    case IN_PLAY:
-                        final CBInPlay inPlay = CBInPlay.getInPlay(location);
-                        if (inPlay == null) {
-                            addToUILog("In Play was not ready at " + location);
-                            break;
+                    inPlayIcon.setOnClickListener(v1 -> {
+                        if (inPlay != null) {
+                            inPlay.click();
+                            inPlayAd.setVisibility(View.GONE);
+                            addToUILog("In Play clicked at " + location);
+                            inPlayShowing = false;
                         }
-                        Bitmap inPlayBitmap = null;
-                        try {
-                            inPlayBitmap = inPlay.getAppIcon();
-                        } catch (Exception ex) {
-                            String exceptionAsString = Log.getStackTraceString(ex);
+                    });
 
-                            addToUILog(exceptionAsString);
-                        }
-                        if (inPlayBitmap == null) {
-                            addToUILog("Unable to get InPlay bitmap at " + location);
-                            break;
-                        }
-                        inPlayIcon.setImageBitmap(inPlayBitmap);
-                        inPlayAd.setVisibility(View.VISIBLE);
-                        inPlay.show();
-                        addToUILog("In Play shown at " + location);
-                        inPlayShowing = true;
-
-                        inPlayIcon.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (inPlay != null) {
-                                    inPlay.click();
-                                    inPlayAd.setVisibility(View.GONE);
-                                    addToUILog("In Play clicked at " + location);
-                                    inPlayShowing = false;
-                                }
-                            }
-                        });
-
-                        inPlayCloseButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                inPlayAd.setVisibility(View.GONE);
-                                inPlayShowing = false;
-                            }
-                        });
-                        break;
-                }
+                    inPlayCloseButton.setOnClickListener(v12 -> {
+                        inPlayAd.setVisibility(View.GONE);
+                        inPlayShowing = false;
+                    });
+                    break;
             }
         });
 
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearUI();
-            }
-        });
+        clearButton.setOnClickListener(v -> clearUI());
 
     }
 }

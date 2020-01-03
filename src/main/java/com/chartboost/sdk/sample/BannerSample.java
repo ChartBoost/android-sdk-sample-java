@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostBanner;
 import com.chartboost.sdk.ChartboostBannerListener;
 import com.chartboost.sdk.Events.ChartboostCacheError;
@@ -28,6 +26,7 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chartboost_banner_sample);
+
         impressionType = ImpressionType.BANNER;
         chartboostBanner = findViewById(R.id.example_banner);
         chartboostBanner.setListener(this);
@@ -39,28 +38,28 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
         logTextView.setText(logTextView.getText(), TextView.BufferType.EDITABLE);
         logTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        displayCounter = (TextView) findViewById(R.id.displayCounter);
-        failClickCounter = (TextView) findViewById(R.id.failClickCounter);
-        clickCounter = (TextView) findViewById(R.id.clickCounter);
-        cacheCounter = (TextView) findViewById(R.id.cacheCounter);
-        dismissCounter = (TextView) findViewById(R.id.dismissCounter);
-        completeCounter = (TextView) findViewById(R.id.completeCounter);
-        failLoadCounter = (TextView) findViewById(R.id.failLoadCounter);
-        closeCounter = (TextView) findViewById(R.id.closeCounter);
-        rewardCounter = (TextView) findViewById(R.id.rewardCounter);
-        hasLocation = (TextView) findViewById(R.id.hasText);
+        displayCounter = findViewById(R.id.displayCounter);
+        failClickCounter = findViewById(R.id.failClickCounter);
+        clickCounter = findViewById(R.id.clickCounter);
+        cacheCounter = findViewById(R.id.cacheCounter);
+        dismissCounter = findViewById(R.id.dismissCounter);
+        completeCounter = findViewById(R.id.completeCounter);
+        failLoadCounter = findViewById(R.id.failLoadCounter);
+        closeCounter = findViewById(R.id.closeCounter);
+        rewardCounter = findViewById(R.id.rewardCounter);
+        hasLocation = findViewById(R.id.hasText);
 
-        Button cacheButton = (Button) findViewById(R.id.cacheButton);
-        Button showButton = (Button) findViewById(R.id.showButton);
-        Button clearButton = (Button) findViewById(R.id.clearButton);
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        Button cacheButton = findViewById(R.id.cacheButton);
+        Button showButton = findViewById(R.id.showButton);
+        Button clearButton = findViewById(R.id.clearButton);
+        ImageButton settingsButton = findViewById(R.id.settingsButton);
 
         cacheButton.setOnClickListener(v -> cacheBanner());
         showButton.setOnClickListener(v -> showBanner());
         clearButton.setOnClickListener(v -> clearUI());
         settingsButton.setOnClickListener(v -> openSettings());
 
-        locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        locationSpinner = findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -75,7 +74,6 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
     }
 
     private void onLocationAdapterChange(AdapterView<?> parentView, int position) {
-        Chartboost.setActivityAttrs(BannerSample.this);
         location = parentView.getItemAtPosition(position).toString();
         hasLocation.setText(isAdReadyToDisplay(location) ? "Yes" : "No");
         addToUILog("Location changed to " + location);
@@ -101,8 +99,10 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
     public void onAdCached(ChartboostCacheEvent chartboostCacheEvent, ChartboostCacheError chartboostCacheError) {
         if(chartboostCacheError != null) {
             addToUILog("Banner cached error: " + chartboostCacheError.code);
+            incrementCounter(failLoadCounter);
         } else {
             addToUILog("Banner cached");
+            incrementCounter(cacheCounter);
         }
     }
 
@@ -110,8 +110,10 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
     public void onAdShown(ChartboostShowEvent chartboostShowEvent, ChartboostShowError chartboostShowError) {
         if(chartboostShowError != null) {
             addToUILog("Banner shown error: " + chartboostShowError.code);
+            incrementCounter(failLoadCounter);
         } else {
             addToUILog("Banner shown for location: " + chartboostShowEvent.location);
+            incrementCounter(displayCounter);
         }
     }
 
@@ -119,8 +121,10 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
     public void onAdClicked(ChartboostClickEvent chartboostClickEvent, ChartboostClickError chartboostClickError) {
         if(chartboostClickError != null) {
             addToUILog("Banner clicked error: " + chartboostClickError.code);
+            incrementCounter(failClickCounter);
         } else {
             addToUILog("Banner clicked");
+            incrementCounter(clickCounter);
         }
     }
 }

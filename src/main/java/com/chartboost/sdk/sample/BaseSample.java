@@ -54,29 +54,6 @@ public class BaseSample extends Activity {
         Chartboost.setActivityCallbacks(false);
         Chartboost.setDelegate(delegate);
         Chartboost.setLoggingLevel(CBLogging.Level.ALL);
-        Chartboost.setActivityAttrs(this);
-    }
-
-    /**
-     * Chartboost Activity Life Cycle Methods
-     */
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Chartboost.setActivityAttrs(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Chartboost.setActivityAttrs(this);
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        Chartboost.setActivityAttrs(this);
     }
 
     @Override
@@ -86,7 +63,7 @@ public class BaseSample extends Activity {
         }
     }
 
-    private void incrementCounter(TextView counter) {
+    public void incrementCounter(TextView counter) {
         addToCounter(counter, 1);
     }
 
@@ -102,7 +79,7 @@ public class BaseSample extends Activity {
 
     public void addToUILog(final String message) {
         if(logTextView != null) {
-            String stringBuilder = new StringBuilder(logTextView.getText()).append(message).append("\n").toString();
+            String stringBuilder = logTextView.getText() + message + "\n";
             setTextSafely(logTextView, stringBuilder);
             scrollToBottom(logTextView, true);
             Log.i(TAG, message);

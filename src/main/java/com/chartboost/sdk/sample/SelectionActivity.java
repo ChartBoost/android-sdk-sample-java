@@ -12,34 +12,22 @@ import com.chartboost.sdk.Chartboost;
 
 public class SelectionActivity extends Activity {
 
-    ImageButton settingsButton;
-    SharedPreferences sharedPreferences = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
-        Chartboost.startWithAppId(this, getResources().getString(R.string.appId), getResources().getString(R.string.appSignature));
+        Chartboost.startWithAppId(getApplicationContext(), getResources().getString(R.string.appId), getResources().getString(R.string.appSignature));
         setupSdkWithCustomSettings();
-
-        Chartboost.setActivityAttrs(this);
-
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
         createOnClickListener(R.id.inPlayButton, BaseSample.ImpressionType.IN_PLAY);
-        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SelectionActivity.this, SettingsActivity.class));
-            }
-        });
+        ImageButton settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
     }
 
     private void setupSdkWithCustomSettings() {
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         Chartboost.setShouldPrefetchVideoContent(
                 sharedPreferences.getBoolean(getString(R.string.key_enable_video_prefetch), true));
@@ -58,7 +46,7 @@ public class SelectionActivity extends Activity {
 
         private final BaseSample.ImpressionType type;
 
-        public ImpressionClickListener(BaseSample.ImpressionType type) {
+        ImpressionClickListener(BaseSample.ImpressionType type) {
              this.type = type;
         }
 
@@ -78,9 +66,8 @@ public class SelectionActivity extends Activity {
     @Override
     public void onBackPressed() {
         // If an interstitial is on screen, close it.
-        if (Chartboost.onBackPressed())
-            return;
-        else
+        if (!Chartboost.onBackPressed()) {
             super.onBackPressed();
+        }
     }
 }
