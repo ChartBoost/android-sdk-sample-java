@@ -27,8 +27,8 @@ allprojects {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'com.chartboost:chartboost-sdk:8.0.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.chartboost:chartboost-sdk:8.0.1'
     implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
         exclude group: 'com.android.support'
     }

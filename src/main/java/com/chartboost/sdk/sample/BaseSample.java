@@ -51,7 +51,6 @@ public class BaseSample extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Chartboost.setActivityCallbacks(false);
         Chartboost.setDelegate(delegate);
         Chartboost.setLoggingLevel(CBLogging.Level.ALL);
     }
