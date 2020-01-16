@@ -4,6 +4,7 @@ Example application which implementes Chartboost SDK to show basic use cases. It
 ## Chartboost SDK
 
 Sign up for an account at [https://www.chartboost.com/](https://www.chartboost.com/) to receive your app id. 
+For more information go to [https://answers.chartboost.com/en-us/child_article/android](https://answers.chartboost.com/en-us/child_article/android) 
 
 ## Download 
 
