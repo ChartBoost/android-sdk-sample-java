@@ -1,6 +1,6 @@
 # android-sdk-sample-java
 
-##Download 
+## Download 
 
 ```
 repositories {
