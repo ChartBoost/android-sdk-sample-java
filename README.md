@@ -92,6 +92,7 @@ Load rewarded interstitial with a default location argument. Even if the rewarde
 To create new banner it is possible to do it in the xml layout file.
 ```
 <com.chartboost.sdk.ChartboostBanner
+            xmlns:chartboost="http://schemas.android.com/apk/res-auto"
             android:id="@+id/example_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
