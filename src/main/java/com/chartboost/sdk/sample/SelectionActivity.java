@@ -16,6 +16,7 @@ public class SelectionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+        Chartboost.setPIDataUseConsent(this, Chartboost.CBPIDataUseConsent.YES_BEHAVIORAL);
         Chartboost.startWithAppId(getApplicationContext(), getResources().getString(R.string.appId), getResources().getString(R.string.appSignature));
         setupSdkWithCustomSettings();
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);

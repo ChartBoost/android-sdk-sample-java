@@ -1,18 +1,23 @@
 apply plugin: 'com.android.application'
+
 buildscript {
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
     }
 }
+
+apply plugin: 'com.getkeepsafe.dexcount'
 
 ext {
     compileSdkVersion = 28
     buildToolsVersion = '28.0.3'
-    googlePlayServicesVersion = '15.0.1'
+    googlePlayServicesVersion = '17.2.1'
+    googlePlayAdsVersion = '17.0.0'
     supportLibraryVersion = '28.0.0'
 }
 
@@ -28,11 +33,11 @@ allprojects {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.chartboost:chartboost-sdk:8.0.2'
+    implementation 'com.chartboost:chartboost-sdk:8.0.3'
     implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
         exclude group: 'com.android.support'
     }
-    implementation ("com.google.android.gms:play-services-ads-identifier:$project.ext.googlePlayServicesVersion"){
+    implementation ("com.google.android.gms:play-services-ads-identifier:$project.ext.googlePlayAdsVersion"){
         exclude group: 'com.android.support'
     }
 }
@@ -43,10 +48,10 @@ android {
 
     defaultConfig {
         applicationId "com.chartboost.sdk.sample"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.0"
+        versionCode 7
+        versionName "1.1"
     }
 
     buildTypes {
