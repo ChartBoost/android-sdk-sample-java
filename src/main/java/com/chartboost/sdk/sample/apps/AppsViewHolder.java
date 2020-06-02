@@ -2,7 +2,6 @@ package com.chartboost.sdk.sample.apps;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,7 +34,6 @@ class AppsViewHolder extends RecyclerView.ViewHolder {
         id.setText(item.getAppId());
         signature.setText(item.getAppSignature());
         String selected = sharedPreferences.getString(selectedAppIdKey, "");
-        Log.e("test", "selected: "+selected);
         if(selected.equals(item.getAppId())) {
             selectView();
         } else {
