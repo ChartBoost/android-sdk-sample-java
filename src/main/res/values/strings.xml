@@ -3,8 +3,8 @@
     <string name="app_name">Chartboost</string>
     <string name="appId">4f7b433509b6025804000002</string>
     <string name="appSignature">dd2d41b69ac01b80f443f5b6cf06096d457f82bd</string>
-    <string name="appId_kids_content">5ed60a58cb96590a1ea47f75</string>
-    <string name="appSignature_kids_content">fa0f17f52528ba8547af931748b940eea7897e3c</string>
+    <string name="appId_kids_content">5ed62a9d7c777909102df5ca</string>
+    <string name="appSignature_kids_content">64b18724eaf538d72f2c0d72c3ff0b21eebae7b0</string>
     <string name="InterstitialsButton">Interstitials</string>
     <string name="RewardedVideoButton">Rewarded Video</string>
     <string name="moreApps">More Apps</string>
