@@ -3,6 +3,8 @@
     <string name="app_name">Chartboost</string>
     <string name="appId">4f7b433509b6025804000002</string>
     <string name="appSignature">dd2d41b69ac01b80f443f5b6cf06096d457f82bd</string>
+    <string name="appId_kids_content">5ed60a58cb96590a1ea47f75</string>
+    <string name="appSignature_kids_content">fa0f17f52528ba8547af931748b940eea7897e3c</string>
     <string name="InterstitialsButton">Interstitials</string>
     <string name="RewardedVideoButton">Rewarded Video</string>
     <string name="moreApps">More Apps</string>
@@ -26,11 +28,22 @@
     <string name="dismiss">Dismiss:</string>
     <string name="cache_label">Cache:</string>
     <string name="click">Click:</string>
+    <string name="new_app_id">App Id</string>
+    <string name="new_app_signature">Signature</string>
+    <string name="new_app_name">Name</string>
+    <string name="add_app">Add a new app</string>
+    <string name="dialog_restart_title">Are you sure to restart?</string>
+    <string name="dialog_restart_msg">Changing app id and signature requires app restart.</string>
+    <string name="dialog_restart_confirm">Confirm</string>
+    <string name="dialog_restart_cancel">Cancel</string>
 
     <!--Preference Key definitions-->
     <string name="key_enable_autocache">enableAutoCache</string>
     <string name="key_lock_orientation">lockOrientation</string>
     <string name="key_enable_video_prefetch">enableVideoPrefetch</string>
     <string name="key_request_interstitial_in_first_session">interstitialInFirstSession</string>
+    <string name="key_app_id_selected">appIdSelected</string>
+    <string name="key_app_signature_selected">appSignatureSelected</string>
+
 
 </resources>

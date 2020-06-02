@@ -19,7 +19,6 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.requestPermissions(new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_PHONE_STATE},
                     123);
         } else {

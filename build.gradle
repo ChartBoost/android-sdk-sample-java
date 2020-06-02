@@ -14,11 +14,10 @@ buildscript {
 apply plugin: 'com.getkeepsafe.dexcount'
 
 ext {
-    compileSdkVersion = 28
-    buildToolsVersion = '28.0.3'
-    googlePlayServicesVersion = '17.2.1'
+    compileSdkVersion = 29
+    buildToolsVersion = '29.0.3'
+    googlePlayServicesVersion = '17.3.0'
     googlePlayAdsVersion = '17.0.0'
-    supportLibraryVersion = '28.0.0'
 }
 
 allprojects {
@@ -29,19 +28,6 @@ allprojects {
     }
 }
 
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.chartboost:chartboost-sdk:8.0.3'
-    implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
-        exclude group: 'com.android.support'
-    }
-    implementation ("com.google.android.gms:play-services-ads-identifier:$project.ext.googlePlayAdsVersion"){
-        exclude group: 'com.android.support'
-    }
-}
-
 android {
     compileSdkVersion project.ext.compileSdkVersion
     buildToolsVersion project.ext.buildToolsVersion
@@ -49,14 +35,14 @@ android {
     defaultConfig {
         applicationId "com.chartboost.sdk.sample"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 7
-        versionName "1.1"
+        targetSdkVersion 29
+        versionCode 8
+        versionName "1.2"
     }
 
     buildTypes {
         release {
-            minifyEnabled false  // FIXME - should clean up proguard for this sample app
+            minifyEnabled false
             proguardFiles 'proguard-project.txt'
         }
     }
@@ -69,5 +55,20 @@ android {
     dexOptions {
         preDexLibraries = false
         javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.google.android.material:material:1.2.0-beta01"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
+        exclude group: 'com.android.support'
+    }
+    implementation ("com.google.android.gms:play-services-ads-identifier:$project.ext.googlePlayAdsVersion"){
+        exclude group: 'com.android.support'
     }
 }

@@ -6,12 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- Allows the SDK to cache all ad assets (creatives, custom frames, etc.)
-     in external memory. This maximizes performance by immediately delivering
-     ads and reducing network traffic used by the SDK. -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- Allows the SDK to handle video playback when interrupted by a call -->
+    <!-- Optional Chartboost SDK permission to collect information about sim state -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -47,6 +42,9 @@
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".ChartboostSample" />
         <activity android:name=".BannerSample" />
+        <activity
+            android:name=".apps.AppsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
 
     </application>
 
