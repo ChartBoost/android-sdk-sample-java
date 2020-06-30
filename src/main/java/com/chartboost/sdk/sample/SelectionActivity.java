@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -85,8 +86,31 @@ public class SelectionActivity extends Activity {
         public void didInitialize() {
             super.didInitialize();
             Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK is initialized", Toast.LENGTH_SHORT).show();
+            displayGDPRConsentInLogs();
         }
     };
+
+    private void displayGDPRConsentInLogs() {
+        GDPR gdpr = null;
+        try {
+            gdpr = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
+        } catch (Exception e) {
+            Log.e("Chartboost", "Cannot parse consent to GDPR: "+e.toString());
+        }
+
+        if(gdpr != null) {
+            String consentValue = gdpr.getConsent();
+            if(GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
+                Log.e("Chartboost", "GDPR is BEHAVIORAL");
+            } else if(GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)){
+                Log.e("Chartboost", "GDPR is NON_BEHAVIORAL");
+            } else {
+                Log.e("Chartboost", "GDPR is INVALID CONSENT");
+            }
+        } else {
+            Log.e("Chartboost", "GDPR is not set");
+        }
+    }
 
     private class ImpressionClickListener implements View.OnClickListener {
 
