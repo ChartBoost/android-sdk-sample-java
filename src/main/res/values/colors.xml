@@ -3,4 +3,7 @@
     <color name="navy40">#303842</color>
     <color name="green80">#8ac73b</color>
     <color name="slate40">#c1d1e0</color>
+    <color name="white">#ffffff</color>
+    <color name="darkgray">#A9A9A9</color>
+    <color name="black">#000000</color>
 </resources>

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:title="App"
+        android:summary="Set App ID and Signature"
+        android:id="@+id/appidPreference">
+        <intent android:action="com.chartboost.sdk.sample.apps.AppsActivity"
+            android:targetPackage="com.chartboost.sdk.sample"
+            android:targetClass="com.chartboost.sdk.sample.apps.AppsActivity"/>
+    </Preference>
+
     <SwitchPreference
         android:title="Request interstitials in first session"
         android:defaultValue="true"
@@ -18,5 +27,4 @@
         android:defaultValue="true"
         android:key="@string/key_enable_autocache"
         android:id="@+id/setAutoCacheAdsPreference"/>
-
 </PreferenceScreen>
