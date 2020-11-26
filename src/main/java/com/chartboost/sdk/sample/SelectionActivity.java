@@ -36,7 +36,6 @@ public class SelectionActivity extends Activity {
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
-        createOnClickListener(R.id.inPlayButton, BaseSample.ImpressionType.IN_PLAY);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
     }

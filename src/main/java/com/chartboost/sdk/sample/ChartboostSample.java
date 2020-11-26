@@ -20,12 +20,6 @@ public class ChartboostSample extends BaseSample {
 
     protected final static String impressionTypeKey = "IMPRESSION_TYPE_KEY";
 
-    // In Play
-    private ImageButton inPlayIcon;
-    private ImageButton inPlayCloseButton;
-    private RelativeLayout inPlayAd;
-    private boolean inPlayShowing = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +39,6 @@ public class ChartboostSample extends BaseSample {
                 break;
             case REWARDED:
                 title.setText("Rewarded");
-                break;
-            case IN_PLAY:
-                title.setText("InPlay");
                 break;
         }
 
@@ -77,14 +68,6 @@ public class ChartboostSample extends BaseSample {
         Button showButton = (Button) findViewById(R.id.showButton);
         Button clearButton = (Button) findViewById(R.id.clearButton);
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-
-        // In Play
-        inPlayIcon = (ImageButton) findViewById(R.id.inPlayIcon);
-        inPlayCloseButton = (ImageButton) findViewById(R.id.inPlayCloseButton);
-        inPlayAd = (RelativeLayout) findViewById(R.id.inPlayAd);
-        if(!inPlayShowing) {
-            inPlayAd.setVisibility(View.GONE);
-        }
 
         locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -118,9 +101,6 @@ public class ChartboostSample extends BaseSample {
                 case REWARDED:
                     Chartboost.cacheRewardedVideo(location);
                     break;
-                case IN_PLAY:
-                    CBInPlay.cacheInPlay(location);;
-                    break;
             }
         });
 
@@ -132,10 +112,6 @@ public class ChartboostSample extends BaseSample {
 
                 case REWARDED:
                     Chartboost.showRewardedVideo(location);
-                    break;
-
-                case IN_PLAY:
-                    addToUILog("In Play is not supported");
                     break;
             }
         });
