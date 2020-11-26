@@ -135,42 +135,7 @@ public class ChartboostSample extends BaseSample {
                     break;
 
                 case IN_PLAY:
-                    final CBInPlay inPlay = CBInPlay.getInPlay(location);
-                    if (inPlay == null) {
-                        addToUILog("In Play was not ready at " + location);
-                        break;
-                    }
-                    Bitmap inPlayBitmap = null;
-                    try {
-                        inPlayBitmap = inPlay.getAppIcon();
-                    } catch (Exception ex) {
-                        String exceptionAsString = Log.getStackTraceString(ex);
-
-                        addToUILog(exceptionAsString);
-                    }
-                    if (inPlayBitmap == null) {
-                        addToUILog("Unable to get InPlay bitmap at " + location);
-                        break;
-                    }
-                    inPlayIcon.setImageBitmap(inPlayBitmap);
-                    inPlayAd.setVisibility(View.VISIBLE);
-                    inPlay.show();
-                    addToUILog("In Play shown at " + location);
-                    inPlayShowing = true;
-
-                    inPlayIcon.setOnClickListener(v1 -> {
-                        if (inPlay != null) {
-                            inPlay.click();
-                            inPlayAd.setVisibility(View.GONE);
-                            addToUILog("In Play clicked at " + location);
-                            inPlayShowing = false;
-                        }
-                    });
-
-                    inPlayCloseButton.setOnClickListener(v12 -> {
-                        inPlayAd.setVisibility(View.GONE);
-                        inPlayShowing = false;
-                    });
+                    addToUILog("In Play is not supported");
                     break;
             }
         });
