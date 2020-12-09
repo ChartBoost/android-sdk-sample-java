@@ -72,17 +72,6 @@
                 android:layout_margin="10dp"/>
         </TableRow>
 
-        <TableRow>
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="93dp"
-                android:text="@string/InPlayButton"
-                android:id="@+id/inPlayButton"
-                android:background="@color/green80"
-                android:textColor="@android:color/white"
-                android:layout_margin="10dp"/>
-        </TableRow>
-
     </TableLayout>
 
 </RelativeLayout>

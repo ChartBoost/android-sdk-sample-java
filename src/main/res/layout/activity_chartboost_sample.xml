@@ -308,26 +308,4 @@
         </TableLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/inPlayAd"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
-        <ImageButton
-            android:id="@+id/inPlayIcon"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="@null" />
-        <ImageButton
-            android:id="@+id/inPlayCloseButton"
-            android:layout_alignTop="@id/inPlayIcon"
-            android:layout_alignRight="@id/inPlayIcon"
-            android:layout_alignEnd="@+id/inPlayIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_menu_close_clear_cancel"/>
-
-    </RelativeLayout>
-
 </RelativeLayout>

@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
-import com.chartboost.sdk.InPlay.CBInPlay;
 import com.chartboost.sdk.Libraries.CBLogging;
 import com.chartboost.sdk.Model.CBError;
 
@@ -118,8 +117,6 @@ public class BaseSample extends Activity {
                 return Chartboost.hasInterstitial(location);
             case REWARDED:
                 return Chartboost.hasRewardedVideo(location);
-            case IN_PLAY:
-                return CBInPlay.hasInPlay(location);
             default:
                 return false;
         }
@@ -293,19 +290,6 @@ public class BaseSample extends Activity {
             addToUILog("Will display video at " + location);
         }
 
-        @Override
-        public void didCacheInPlay(String location) {
-            addToUILog("In Play loaded at " + location);
-            setHasAdForLocation(location);
-            incrementCounter(cacheCounter);
-        }
-
-        @Override
-        public void didFailToLoadInPlay(String location, CBError.CBImpressionError error) {
-            addToUILog("In play failed to load at " + location + ", with error: " + error);
-            setHasAdForLocation(location);
-            incrementCounter(failLoadCounter);
-        }
 
         @Override
         public void didInitialize() {
