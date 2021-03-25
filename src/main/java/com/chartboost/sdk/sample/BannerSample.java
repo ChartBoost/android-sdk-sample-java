@@ -73,6 +73,14 @@ public class BannerSample extends BaseSample implements ChartboostBannerListener
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(chartboostBanner != null) {
+            chartboostBanner.detachBanner();
+        }
+    }
+
     private void onLocationAdapterChange(AdapterView<?> parentView, int position) {
         location = parentView.getItemAtPosition(position).toString();
         hasLocation.setText(isAdReadyToDisplay(location) ? "Yes" : "No");
