@@ -1,5 +1,75 @@
-# android-sdk-sample-java
-Example application which implementes Chartboost SDK to show basic use cases. It will guide user through initialisation of the SDK, caching and showing 3 types of different ads. 
+# android-sdk-sample-java// Checks for a cached interstitial at given CBlocation.
+
+public static bool hasInterstitial(CBLocation location)
+
+// Checks for a cached moreApps page at given CBlocation.
+public static bool hasMoreApps(CBLocation location)
+
+// Checks for a cached rewarded video at given CBlocation.
+public static bool hasRewardedVideo(CBLocation location)
+
+// Check to see if any views are visible (Android only).
+public static bool isAnyViewVisible()
+
+// Set to enable and disable the autocache feature. Enabled by default.
+public static void setAutoCacheAds(bool autoCacheAds)
+
+// Get the current autocache behavior. Enabled by default.
+public static bool getAutoCacheAds()
+
+// Set a custom identifier to send in the POST body for all Chartboost API server requests.
+public static void setCustomId(String customId)
+
+// Get the current custom identifier being sent in the POST body for all Chartboost API server requests.
+public static String getCustomId()
+
+// Decide if the Chartboost SDK should show interstitials in the first session.
+public static void setShouldRequestInterstitialsInFirstSession(bool shouldRequest)
+
+//  Decide if the Chartboost SDK should show a loading view while preparing to display the MoreApps UI.
+public static void setShouldDisplayLoadingViewForMoreApps(bool shouldDisplay)
+
+// Decide if the Chartboost SDK will attempt to fetch videos from the Chartboost API servers.
+public static void setShouldPrefetchVideoContent(bool shouldPrefetch)
+
+// Set to control how the fullscreen ad units should interact with the status bar. CBStatusBarBehaviorIgnore by default.
+// iOS only
+public static void setStatusBarBehavior(CBStatusBarBehavior statusBarBehavior// Checks for a cached interstitial at given CBlocation.
+public static bool hasInterstitial(CBLocation location)
+
+// Checks for a cached moreApps page at given CBlocation.
+public static bool hasMoreApps(CBLocation location)
+
+// Checks for a cached rewarded video at given CBlocation.
+public static bool hasRewardedVideo(CBLocation location)
+
+// Check to see if any views are visible (Android only).
+public static bool isAnyViewVisible()
+
+// Set to enable and disable the autocache feature. Enabled by default.
+public static void setAutoCacheAds(bool autoCacheAds)
+
+// Get the current autocache behavior. Enabled by default.
+public static bool getAutoCacheAds()
+
+// Set a custom identifier to send in the POST body for all Chartboost API server requests.
+public static void setCustomId(String customId)
+
+// Get the current custom identifier being sent in the POST body for all Chartboost API server requests.
+public static String getCustomId()
+
+// Decide if the Chartboost SDK should show interstitials in the first session.
+public static void setShouldRequestInterstitialsInFirstSession(bool shouldRequest)
+
+//  Decide if the Chartboost SDK should show a loading view while preparing to display the MoreApps UI.
+public static void setShouldDisplayLoadingViewForMoreApps(bool shouldDisplay)
+
+// Decide if the Chartboost SDK will attempt to fetch videos from the Chartboost API servers.
+public static void setShouldPrefetchVideoContent(bool shouldPrefetch)
+
+// Set to control how the fullscreen ad units should interact with the status bar. CBStatusBarBehaviorIgnore by default.
+// iOS only
+public static void setStatusBarBehavior(CBStatusBarBehavior statusBarBehavior))Example application which implementes Chartboost SDK to show basic use cases. It will guide user through initialisation of the SDK, caching and showing 3 types of different ads. 
 
 ## Chartboost SDK
 
