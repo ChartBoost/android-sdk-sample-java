@@ -12,7 +12,7 @@ Chartboost SDK is available as an AAR via JCenter; to use it, add the following 
 
 ```
 repositories {
-    maven { url  "https://chartboostmobile.bintray.com/Chartboost" }
+    mavenCentral()
 }
 
 dependencies {
