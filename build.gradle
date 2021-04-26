@@ -23,8 +23,7 @@ ext {
 allprojects {
     repositories {
         google()
-        jcenter()
-        maven { url  "https://chartboostmobile.bintray.com/Chartboost" }
+        mavenCentral()
     }
 }
 
