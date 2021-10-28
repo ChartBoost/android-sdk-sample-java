@@ -1,20 +1,15 @@
 package com.chartboost.sdk.sample;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.chartboost.sdk.Chartboost;
-import com.chartboost.sdk.InPlay.CBInPlay;
 
 public class ChartboostSample extends BaseSample {
 
