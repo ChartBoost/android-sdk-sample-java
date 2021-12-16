@@ -8,7 +8,7 @@ For more information go to [https://answers.chartboost.com/en-us/child_article/a
 
 ## Download 
 
-Chartboost SDK is available as an AAR via JCenter; to use it, add the following to your `build.gradle`.
+Chartboost SDK is available as an AAR via Maven Central; to use it, add the following to your `build.gradle`.
 
 ```
 repositories {
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.chartboost:chartboost-sdk:8.2.1'
+    implementation 'com.chartboost:chartboost-sdk:8.3.0'
 }
 ```
 
