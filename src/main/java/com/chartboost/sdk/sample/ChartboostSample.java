@@ -1,20 +1,16 @@
 package com.chartboost.sdk.sample;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.chartboost.sdk.Chartboost;
-import com.chartboost.sdk.InPlay.CBInPlay;
 
 public class ChartboostSample extends BaseSample {
 
@@ -33,7 +29,7 @@ public class ChartboostSample extends BaseSample {
             impressionType = (BaseSample.ImpressionType) extras.get(impressionTypeKey);
         }
 
-        switch (impressionType){
+        switch (impressionType) {
             case INTERSTITIAL:
                 title.setText("Interstitial");
                 break;
@@ -94,7 +90,7 @@ public class ChartboostSample extends BaseSample {
         settingsButton.setOnClickListener(v -> startActivity(new Intent(ChartboostSample.this, SettingsActivity.class)));
 
         cacheButton.setOnClickListener(v -> {
-            switch (impressionType){
+            switch (impressionType) {
                 case INTERSTITIAL:
                     Chartboost.cacheInterstitial(location);
                     break;
@@ -105,7 +101,7 @@ public class ChartboostSample extends BaseSample {
         });
 
         showButton.setOnClickListener(v -> {
-            switch (impressionType){
+            switch (impressionType) {
                 case INTERSTITIAL:
                     Chartboost.showInterstitial(location);
                     break;
