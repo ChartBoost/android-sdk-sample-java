@@ -14,8 +14,8 @@ buildscript {
 ext {
     compileSdkVersion = 31
     buildToolsVersion = '31.0.0'
-    googlePlayServicesVersion = '18.0.0'
-    googlePlayAdsVersion = '18.0.0'
+    googlePlayServicesVersion = '18.0.1'
+    googlePlayAdsVersion = '18.0.1'
 }
 
 allprojects {
@@ -52,11 +52,11 @@ android {
 
 dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation "com.google.android.material:material:1.6.0-alpha01"
+    implementation "com.google.android.material:material:1.6.0-alpha02"
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.chartboost:chartboost-sdk:8.3.0'
+    implementation 'com.chartboost:chartboost-sdk:8.3.1'
     implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
         exclude group: 'com.android.support'
     }
