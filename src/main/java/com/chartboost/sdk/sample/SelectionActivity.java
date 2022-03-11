@@ -57,7 +57,7 @@ public class SelectionActivity extends AppCompatActivity  {
         String appSignature = sharedPreferences.getString(getString(R.string.key_app_signature_selected), "");
 
         //in case there were no selected values, use default and save them as selected
-        if (appId.isEmpty() || appSignature.isEmpty()) {
+        if(appId.isEmpty() || appSignature.isEmpty()) {
             appId = getResources().getString(R.string.appId);
             appSignature = getResources().getString(R.string.appSignature);
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit()
@@ -98,14 +98,14 @@ public class SelectionActivity extends AppCompatActivity  {
         try {
             gdpr = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
         } catch (Exception e) {
-            Log.e("Chartboost", "Cannot parse consent to GDPR: " + e.toString());
+            Log.e("Chartboost", "Cannot parse consent to GDPR: "+e.toString());
         }
 
-        if (gdpr != null) {
+        if(gdpr != null) {
             String consentValue = gdpr.getConsent();
-            if (GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
+            if(GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
                 Log.e("Chartboost", "GDPR is BEHAVIORAL");
-            } else if (GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)) {
+            } else if(GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)){
                 Log.e("Chartboost", "GDPR is NON_BEHAVIORAL");
             } else {
                 Log.e("Chartboost", "GDPR is INVALID CONSENT");
@@ -138,13 +138,13 @@ public class SelectionActivity extends AppCompatActivity  {
         private final BaseSample.ImpressionType type;
 
         ImpressionClickListener(BaseSample.ImpressionType type) {
-            this.type = type;
+             this.type = type;
         }
 
         @Override
         public void onClick(View v) {
             Intent intent;
-            if (this.type == BaseSample.ImpressionType.BANNER) {
+            if(this.type == BaseSample.ImpressionType.BANNER) {
                 intent = new Intent(getBaseContext(), BannerSample.class);
             } else {
                 intent = new Intent(getBaseContext(), ChartboostSample.class);
