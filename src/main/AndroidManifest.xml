@@ -39,7 +39,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".BaseSample" />
-        <activity android:name=".SelectionActivity" />
+        <activity android:name=".SelectionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".ChartboostSample" />
         <activity android:name=".BannerSample" />

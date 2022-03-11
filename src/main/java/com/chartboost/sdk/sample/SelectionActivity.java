@@ -1,6 +1,5 @@
 package com.chartboost.sdk.sample;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +9,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Privacy.model.CCPA;
 import com.chartboost.sdk.Privacy.model.GDPR;
+import com.chartboost.sdk.sample.privacy.data.DisclosureRepositoryPreferences;
+import com.chartboost.sdk.sample.privacy.presentation.DisclosurePresenter;
+import com.google.android.material.snackbar.Snackbar;
 
-public class SelectionActivity extends Activity {
+public class SelectionActivity extends AppCompatActivity implements DisclosurePresenter.View {
+
+    private DisclosurePresenter disclosurePresenter;
+    private ImageButton settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +43,17 @@ public class SelectionActivity extends Activity {
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
-        ImageButton settingsButton = findViewById(R.id.settingsButton);
+        settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
+        
+        disclosurePresenter = new DisclosurePresenter(new DisclosureRepositoryPreferences(sharedPreferences));
+        disclosurePresenter.attach(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        disclosurePresenter.detach();
+        super.onDestroy();
     }
 
     private void initSDK(String[] ids) {
@@ -109,6 +125,18 @@ public class SelectionActivity extends Activity {
         } else {
             Log.e("Chartboost", "GDPR is not set");
         }
+    }
+
+    @Override
+    public void showDisclosureDialog() {
+        Snackbar snackbar = Snackbar.make(settingsButton, getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(getString(R.string.ok), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                disclosurePresenter.disclosureDialogShown();
+            }
+        });
+        snackbar.show();
     }
 
     private class ImpressionClickListener implements View.OnClickListener {
