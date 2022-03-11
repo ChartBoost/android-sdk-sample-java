@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class SelectionActivity extends AppCompatActivity implements DisclosurePresenter.View {
 
     private DisclosurePresenter disclosurePresenter;
-    private ImageButton settingsButton;
+    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,10 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
-        settingsButton = findViewById(R.id.settingsButton);
+        ImageButton settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
-        
+
+        rootView = findViewById(R.id.rootView);
         disclosurePresenter = new DisclosurePresenter(new DisclosureRepositoryPreferences(sharedPreferences));
         disclosurePresenter.attach(this);
     }
@@ -69,7 +70,7 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         String appSignature = sharedPreferences.getString(getString(R.string.key_app_signature_selected), "");
 
         //in case there were no selected values, use default and save them as selected
-        if(appId.isEmpty() || appSignature.isEmpty()) {
+        if (appId.isEmpty() || appSignature.isEmpty()) {
             appId = getResources().getString(R.string.appId);
             appSignature = getResources().getString(R.string.appSignature);
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit()
@@ -110,14 +111,14 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         try {
             gdpr = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
         } catch (Exception e) {
-            Log.e("Chartboost", "Cannot parse consent to GDPR: "+e.toString());
+            Log.e("Chartboost", "Cannot parse consent to GDPR: " + e.toString());
         }
 
-        if(gdpr != null) {
+        if (gdpr != null) {
             String consentValue = gdpr.getConsent();
-            if(GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
+            if (GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
                 Log.e("Chartboost", "GDPR is BEHAVIORAL");
-            } else if(GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)){
+            } else if (GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)) {
                 Log.e("Chartboost", "GDPR is NON_BEHAVIORAL");
             } else {
                 Log.e("Chartboost", "GDPR is INVALID CONSENT");
@@ -129,7 +130,7 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
 
     @Override
     public void showDisclosureDialog() {
-        Snackbar snackbar = Snackbar.make(settingsButton, getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(rootView, getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction(getString(R.string.ok), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,13 +145,13 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         private final BaseSample.ImpressionType type;
 
         ImpressionClickListener(BaseSample.ImpressionType type) {
-             this.type = type;
+            this.type = type;
         }
 
         @Override
         public void onClick(View v) {
             Intent intent;
-            if(this.type == BaseSample.ImpressionType.BANNER) {
+            if (this.type == BaseSample.ImpressionType.BANNER) {
                 intent = new Intent(getBaseContext(), BannerSample.class);
             } else {
                 intent = new Intent(getBaseContext(), ChartboostSample.class);
