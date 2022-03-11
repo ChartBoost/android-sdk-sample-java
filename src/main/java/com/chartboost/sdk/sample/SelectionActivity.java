@@ -13,14 +13,11 @@ import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Privacy.model.CCPA;
 import com.chartboost.sdk.Privacy.model.GDPR;
-import com.chartboost.sdk.sample.privacy.data.DisclosureRepositoryPreferences;
-import com.chartboost.sdk.sample.privacy.presentation.DisclosurePresenter;
 import com.google.android.material.snackbar.Snackbar;
 
-public class SelectionActivity extends AppCompatActivity implements DisclosurePresenter.View {
+public class SelectionActivity extends AppCompatActivity  {
 
-    private DisclosurePresenter disclosurePresenter;
-    private View rootView;
+    private static String DISCLOSURE_SHOWN_KEY = "disclosure_shown";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +41,7 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
 
-        rootView = findViewById(R.id.rootView);
-        disclosurePresenter = new DisclosurePresenter(new DisclosureRepositoryPreferences(sharedPreferences));
-        disclosurePresenter.attach(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        disclosurePresenter.detach();
-        super.onDestroy();
+        displayAdIdConsentIdNeeded();
     }
 
     private void initSDK(String[] ids) {
@@ -126,16 +115,22 @@ public class SelectionActivity extends AppCompatActivity implements DisclosurePr
         }
     }
 
-    @Override
-    public void showDisclosureDialog() {
-        Snackbar snackbar = Snackbar.make(rootView, getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction(getString(R.string.ok), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                disclosurePresenter.disclosureDialogShown();
-            }
-        });
-        snackbar.show();
+    /*
+    For further information plese read document
+    https://support.google.com/googleplay/android-developer/answer/10144311?visit_id=637824342745618041-164143577&rd=1
+     */
+    public void displayAdIdConsentIdNeeded() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if (!sharedPreferences.getBoolean(DISCLOSURE_SHOWN_KEY, false)) {
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.rootView), getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction(getString(R.string.ok), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sharedPreferences.edit().putBoolean(DISCLOSURE_SHOWN_KEY, true).apply();
+                }
+            });
+            snackbar.show();
+        }
     }
 
     private class ImpressionClickListener implements View.OnClickListener {
