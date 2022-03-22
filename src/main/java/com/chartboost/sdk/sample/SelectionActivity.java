@@ -102,7 +102,7 @@ public class SelectionActivity extends AppCompatActivity  {
         }
 
         if(gdpr != null) {
-            String consentValue = gdpr.getConsent();
+            String consentValue = (String) gdpr.getConsent();
             if(GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
                 Log.e("Chartboost", "GDPR is BEHAVIORAL");
             } else if(GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)){
