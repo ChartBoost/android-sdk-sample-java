@@ -54,9 +54,9 @@ dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation "com.google.android.material:material:1.6.0-alpha02"
+    implementation "com.google.android.material:material:1.6.0-alpha03"
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.chartboost:chartboost-sdk:8.3.1'
+    implementation 'com.chartboost:chartboost-sdk:8.4.1'
     implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
         exclude group: 'com.android.support'
     }
