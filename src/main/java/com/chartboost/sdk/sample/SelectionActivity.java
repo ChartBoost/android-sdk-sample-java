@@ -1,6 +1,5 @@
 package com.chartboost.sdk.sample;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,13 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
 import com.chartboost.sdk.Privacy.model.CCPA;
 import com.chartboost.sdk.Privacy.model.GDPR;
+import com.google.android.material.snackbar.Snackbar;
 
-public class SelectionActivity extends Activity {
+public class SelectionActivity extends AppCompatActivity  {
+
+    private static String DISCLOSURE_SHOWN_KEY = "disclosure_shown";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class SelectionActivity extends Activity {
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> startActivity(new Intent(SelectionActivity.this, SettingsActivity.class)));
+
+        displayAdIdConsentIdNeeded();
     }
 
     private void initSDK(String[] ids) {
@@ -108,6 +112,24 @@ public class SelectionActivity extends Activity {
             }
         } else {
             Log.e("Chartboost", "GDPR is not set");
+        }
+    }
+
+    /*
+    For further information plese read document
+    https://support.google.com/googleplay/android-developer/answer/10144311?visit_id=637824342745618041-164143577&rd=1
+     */
+    public void displayAdIdConsentIdNeeded() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if (!sharedPreferences.getBoolean(DISCLOSURE_SHOWN_KEY, false)) {
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.rootView), getString(R.string.disclosure_message), Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction(getString(R.string.ok), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sharedPreferences.edit().putBoolean(DISCLOSURE_SHOWN_KEY, true).apply();
+                }
+            });
+            snackbar.show();
         }
     }
 

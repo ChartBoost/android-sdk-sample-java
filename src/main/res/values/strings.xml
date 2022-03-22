@@ -36,7 +36,8 @@
     <string name="dialog_restart_msg">Changing app id and signature requires app restart.</string>
     <string name="dialog_restart_confirm">Confirm</string>
     <string name="dialog_restart_cancel">Cancel</string>
-
+    <string name="disclosure_message">Your data will be used to deliver personalized ads to you.</string>
+    <string name="ok">Ok</string>
     <!--Preference Key definitions-->
     <string name="key_enable_autocache">enableAutoCache</string>
     <string name="key_lock_orientation">lockOrientation</string>
