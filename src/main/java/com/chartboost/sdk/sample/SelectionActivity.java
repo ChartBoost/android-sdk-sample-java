@@ -10,14 +10,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.chartboost.sdk.Chartboost;
-import com.chartboost.sdk.ChartboostDelegate;
-import com.chartboost.sdk.Privacy.model.CCPA;
-import com.chartboost.sdk.Privacy.model.GDPR;
+import com.chartboost.sdk.privacy.model.CCPA;
+import com.chartboost.sdk.privacy.model.GDPR;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SelectionActivity extends AppCompatActivity  {
 
-    private static String DISCLOSURE_SHOWN_KEY = "disclosure_shown";
+    private static final String DISCLOSURE_SHOWN_KEY = "disclosure_shown";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,14 @@ public class SelectionActivity extends AppCompatActivity  {
     private void initSDK(String[] ids) {
         String appId = ids[0];
         String appSignature = ids[1];
-        Chartboost.setDelegate(delegateInit);
-        Chartboost.startWithAppId(getApplicationContext(), appId, appSignature);
+        Chartboost.startWithAppId(getApplicationContext(), appId, appSignature, startError -> {
+            if (startError == null) {
+                Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK is initialized", Toast.LENGTH_SHORT).show();
+                displayGDPRConsentInLogs();
+            } else {
+                Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK initialized with error: "+startError.getCode().name(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private String[] loadSelectedAppId(SharedPreferences sharedPreferences) {
@@ -71,27 +76,12 @@ public class SelectionActivity extends AppCompatActivity  {
     }
 
     private void setupSdkWithCustomSettings(SharedPreferences sharedPreferences) {
-        Chartboost.setShouldPrefetchVideoContent(
-                sharedPreferences.getBoolean(getString(R.string.key_enable_video_prefetch), true));
-        Chartboost.setShouldRequestInterstitialsInFirstSession(
-                sharedPreferences.getBoolean(getString(R.string.key_request_interstitial_in_first_session), true));
-        Chartboost.setAutoCacheAds(
-                sharedPreferences.getBoolean(getString(R.string.key_enable_autocache), true));
 
     }
 
     private void createOnClickListener(int buttonID, BaseSample.ImpressionType type) {
         findViewById(buttonID).setOnClickListener(new ImpressionClickListener(type));
     }
-
-    private ChartboostDelegate delegateInit = new ChartboostDelegate() {
-        @Override
-        public void didInitialize() {
-            super.didInitialize();
-            Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK is initialized", Toast.LENGTH_SHORT).show();
-            displayGDPRConsentInLogs();
-        }
-    };
 
     private void displayGDPRConsentInLogs() {
         GDPR gdpr = null;
@@ -143,22 +133,18 @@ public class SelectionActivity extends AppCompatActivity  {
 
         @Override
         public void onClick(View v) {
-            Intent intent;
-            if(this.type == BaseSample.ImpressionType.BANNER) {
+            Intent intent = null;
+            if (this.type == BaseSample.ImpressionType.BANNER) {
                 intent = new Intent(getBaseContext(), BannerSample.class);
-            } else {
-                intent = new Intent(getBaseContext(), ChartboostSample.class);
-                intent.putExtra(ChartboostSample.impressionTypeKey, this.type);
+            } else if (this.type == BaseSample.ImpressionType.REWARDED){
+                intent = new Intent(getBaseContext(), RewardedSample.class);
+            } else if (this.type == BaseSample.ImpressionType.INTERSTITIAL) {
+                intent = new Intent(getBaseContext(), InterstitialSample.class);
             }
-            startActivity(intent);
-        }
-    }
 
-    @Override
-    public void onBackPressed() {
-        // If an interstitial is on screen, close it.
-        if (!Chartboost.onBackPressed()) {
-            super.onBackPressed();
+            if (intent != null) {
+                startActivity(intent);
+            }
         }
     }
 }
