@@ -7,38 +7,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.chartboost.sdk.ads.Banner;
-import com.chartboost.sdk.callbacks.BannerCallback;
+import com.chartboost.sdk.ads.Interstitial;
+import com.chartboost.sdk.callbacks.InterstitialCallback;
 import com.chartboost.sdk.events.CacheError;
 import com.chartboost.sdk.events.CacheEvent;
 import com.chartboost.sdk.events.ClickError;
 import com.chartboost.sdk.events.ClickEvent;
+import com.chartboost.sdk.events.DismissEvent;
 import com.chartboost.sdk.events.ImpressionEvent;
 import com.chartboost.sdk.events.ShowError;
 import com.chartboost.sdk.events.ShowEvent;
 
-public class BannerSample extends BaseSample implements BannerCallback {
+public class InterstitialSample extends BaseSample implements InterstitialCallback {
 
-    private Banner chartboostBanner = null;
-    private RelativeLayout bannerHolder = null;
+    private Interstitial chartboostInterstitial = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chartboost_banner_sample);
-        bannerHolder = findViewById(R.id.example_banner_holder);
+        setContentView(R.layout.activity_chartboost_sample);
 
-        impressionType = ImpressionType.BANNER;
-        chartboostBanner = new Banner(this, "start", Banner.BannerSize.STANDARD, this, null);
+        impressionType = ImpressionType.INTERSTITIAL;
+        chartboostInterstitial = new Interstitial("start", this, null);
 
         title = (TextView) findViewById(R.id.title);
-        title.setText("Banner");
+        title.setText("Interstitial");
 
         logTextView = (TextView) findViewById(R.id.logText);
         logTextView.setText(logTextView.getText(), TextView.BufferType.EDITABLE);
@@ -60,8 +57,8 @@ public class BannerSample extends BaseSample implements BannerCallback {
         Button clearButton = findViewById(R.id.clearButton);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
 
-        cacheButton.setOnClickListener(v -> cacheBanner());
-        showButton.setOnClickListener(v -> showBanner());
+        cacheButton.setOnClickListener(v -> cacheInterstitial());
+        showButton.setOnClickListener(v -> showInterstitial());
         clearButton.setOnClickListener(v -> clearUI());
         settingsButton.setOnClickListener(v -> openSettings());
 
@@ -77,21 +74,10 @@ public class BannerSample extends BaseSample implements BannerCallback {
 
             }
         });
-
-        bannerHolder.addView(chartboostBanner);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(chartboostBanner != null) {
-            chartboostBanner.detach();
-        }
     }
 
     private void onLocationAdapterChange(AdapterView<?> parentView, int position) {
         location = parentView.getItemAtPosition(position).toString();
-       // hasLocation.setText(isAdReadyToDisplay(location) ? "Yes" : "No");
         addToUILog("Location changed to " + location);
     }
 
@@ -99,25 +85,25 @@ public class BannerSample extends BaseSample implements BannerCallback {
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
-    private void cacheBanner() {
-        if(chartboostBanner != null) {
-            chartboostBanner.cache();
+    private void cacheInterstitial() {
+        if(chartboostInterstitial != null) {
+            chartboostInterstitial.cache();
         }
     }
 
-    private void showBanner() {
-        if(chartboostBanner != null) {
-            chartboostBanner.show();
+    private void showInterstitial() {
+        if(chartboostInterstitial != null) {
+            chartboostInterstitial.show();
         }
     }
 
     @Override
     public void onAdClicked(@NonNull ClickEvent clickEvent, @Nullable ClickError clickError) {
         if(clickError != null) {
-            addToUILog("Banner clicked error: " + clickError.getCode().name());
+            addToUILog("Interstitial clicked error: " + clickError.getCode().name());
             incrementCounter(failClickCounter);
         } else {
-            addToUILog("Banner clicked");
+            addToUILog("Interstitial clicked");
             incrementCounter(clickCounter);
         }
     }
@@ -125,28 +111,28 @@ public class BannerSample extends BaseSample implements BannerCallback {
     @Override
     public void onAdLoaded(@NonNull CacheEvent cacheEvent, @Nullable CacheError cacheError) {
         if(cacheError != null) {
-            addToUILog("Banner cached error: " + cacheError.getCode().name());
+            addToUILog("Interstitial cached error: " + cacheError.getCode().name());
             incrementCounter(failLoadCounter);
         } else {
             hasLocation.setText("Yes");
-            addToUILog("Banner cached");
+            addToUILog("Interstitial cached");
             incrementCounter(cacheCounter);
         }
     }
 
     @Override
     public void onAdRequestedToShow(@NonNull ShowEvent showEvent) {
-        addToUILog("Banner onAdRequestedToShow: " + showEvent.getAd().getLocation());
+        addToUILog("Interstitial onAdRequestedToShow: " + showEvent.getAd().getLocation());
     }
 
     @Override
     public void onAdShown(@NonNull ShowEvent showEvent, @Nullable ShowError showError) {
         hasLocation.setText("No");
         if(showError != null) {
-            addToUILog("Banner shown error: " + showError.getCode().name());
+            addToUILog("Interstitial shown error: " + showError.getCode().name());
             incrementCounter(failDisplayCounter);
         } else {
-            addToUILog("Banner shown for location: " + showEvent.getAd().getLocation());
+            addToUILog("Interstitial shown for location: " + showEvent.getAd().getLocation());
             incrementCounter(displayCounter);
         }
     }
@@ -154,6 +140,12 @@ public class BannerSample extends BaseSample implements BannerCallback {
     @Override
     public void onImpressionRecorded(@NonNull ImpressionEvent impressionEvent) {
         incrementCounter(impressionCounter);
-        addToUILog("Banner impressionEvent: " + impressionEvent.getAd().getLocation());
+        addToUILog("Interstitial impressionEvent: " + impressionEvent.getAd().getLocation());
+    }
+
+    @Override
+    public void onAdDismiss(@NonNull DismissEvent dismissEvent) {
+        incrementCounter(dismissCounter);
+        addToUILog("Interstitial onAdDismiss: " + dismissEvent.getAd().getLocation());
     }
 }

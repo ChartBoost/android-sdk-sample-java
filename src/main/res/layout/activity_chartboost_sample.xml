@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ChartboostSample">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -256,13 +255,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/complete"/>
+                    android:text="@string/impression"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:id="@+id/completeCounter"/>
+                    android:id="@+id/impressionCounter"/>
 
             </TableRow>
 
@@ -283,13 +282,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/close"/>
+                    android:text="@string/fail_display"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:id="@+id/closeCounter"/>
+                    android:id="@+id/failDisplayCounter"/>
 
                 <TextView
                     android:layout_width="wrap_content"

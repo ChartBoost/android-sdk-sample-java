@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:chartboost="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ChartboostSample">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -123,14 +122,6 @@
             android:text="@string/BannerButton"
             android:layout_centerInParent="true"
             android:textColor="@color/navy40"/>
-
-        <com.chartboost.sdk.ChartboostBanner
-            android:id="@+id/example_banner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            chartboost:location="start"
-            chartboost:size="STANDARD" />
     </RelativeLayout>
 
     <LinearLayout
@@ -279,13 +270,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/complete"/>
+                    android:text="@string/impression"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:id="@+id/completeCounter"/>
+                    android:id="@+id/impressionCounter"/>
 
             </TableRow>
 
@@ -306,13 +297,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/close"/>
+                    android:text="@string/fail_display"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
-                    android:id="@+id/closeCounter"/>
+                    android:id="@+id/failDisplayCounter"/>
 
                 <TextView
                     android:layout_width="wrap_content"

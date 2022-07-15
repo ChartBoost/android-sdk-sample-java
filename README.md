@@ -1,12 +1,12 @@
 # android-sdk-sample-java
-Example application which implementes Chartboost SDK to show basic use cases. It will guide user through initialisation of the SDK, caching and showing 3 types of different ads. 
+Example application which implementes Chartboost SDK to show basic use cases. It will guide user through initialisation of the SDK, caching and showing 3 types of different ads.
 
 ## Chartboost SDK
 
-Sign up for an account at [https://www.chartboost.com/](https://www.chartboost.com/) to receive your app id. 
-For more information go to [https://answers.chartboost.com/en-us/child_article/android](https://answers.chartboost.com/en-us/child_article/android) 
+Sign up for an account at [https://www.chartboost.com/](https://www.chartboost.com/) to receive your app id.
+For more information go to [https://answers.chartboost.com/en-us/child_article/android](https://answers.chartboost.com/en-us/child_article/android)
 
-## Download 
+## Download
 
 Chartboost SDK is available as an AAR via Maven Central; to use it, add the following to your `build.gradle`.
 
@@ -16,103 +16,184 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.chartboost:chartboost-sdk:8.3.0'
+    implementation 'com.chartboost:chartboost-sdk:9.0.0'
 }
 ```
 
-## General information 
+## General information
 
 To display basic ads with Chartboost SDK, user needs to initialise the SDK before trying to launch the ad.
 
-SDK provides API calls where some are required and others could be optional. 
+SDK provides API calls where some are required and others could be optional.
 
 ```
-Chartboost.setPIDataUseConsent(this, Chartboost.CBPIDataUseConsent.YES_BEHAVIORAL);
+Chartboost.addDataUseConsent(this, new GDPR(GDPR.GDPR_CONSENT.BEHAVIORAL));
+Chartboost.addDataUseConsent(this, new CCPA(CCPA.CCPA_CONSENT.OPT_IN_SALE));
+Chartboost.addDataUseConsent(this, new COPPA(true));
 ```
-*OPTIONAL: GDPR Compliance method with which you can limit our SDK's data collection. Call this method *before* calling Chartboost.startWithAppId() to ensure that our SDK, as well as dependencies such as Moat, will be restricted. Default is Chartboost.CBPIDataUseConsent.UNKNOWN
- 
+*OPTIONAL: GDPR Compliance method with which you can limit our SDK's data collection. Call this method *before* calling Chartboost.startWithAppId() to ensure that our SDK, as well as dependencies such as Moat, will be restricted.
+
 ```
-Chartboost.startWithAppId(getApplicationContext(), DEFAULT_ID, DEFAULT_SIGNATURE);
+Chartboost.startWithAppId(getApplicationContext(), DEFAULT_ID, DEFAULT_SIGNATURE, startError -> {
+            if (startError == null) {
+              // handle success
+            } else {
+              // handle failure
+            }
+        });
 ```
 *REQUIRED: Start Chartboost with required appId, appSignature and delegate.This method must be executed before any other Chartboost SDK methods can be used. Once executed this call will also control session tracking and background tasks used by Chartboost.
 
-```
-Chartboost.setShouldPrefetchVideoContent(true);
-```
-*OPTIONAL: Decide if Chartboost SDK will attempt to prefetch videos from the Chartboost API servers. Default is true.
-
- ```
-Chartboost.setShouldRequestInterstitialsInFirstSession(true);
-```
-*OPTIONAL: Decide if Chartboost SDK should show interstitials in the first session. Default is true. Set to control if Chartboost SDK can show interstitials in the first session. The session count is controlled via the startWithAppId:appSignature:delegate: method in the Chartboost class.
-
- ```
-Chartboost.setAutoCacheAds(true);
-```
-*OPTIONAL: Sets whether or not a new impression will automatically be cached. Default is true. 
-This method has no effect if called before startWithAppId has been called. 
-
- ```
-Chartboost.setDelegate(delegate);
-```
-*OPTIONAL: This directly sets the delegate object used by Chartboost. Without delegate user won’t receive any feedback from the SDK about the ads state.
 
 ```
-Chartboost.setLoggingLevel(CBLogging.Level.ALL);
+Chartboost.setLoggingLevel(LoggingLevel.ALL);
 ```
 *OPTIONAL: Set the Chartboost SDK logging level. Default is Level.INTEGRATION
 
 ## Cache Interstitial
 ```
-public static void cacheInterstitial(final String location)
+Interstitial chartboostInterstitial = new Interstitial("location", new InterstitialCallback() {
+    @Override
+    public void onAdDismiss(@NonNull DismissEvent dismissEvent) {
+
+    }
+
+    @Override
+    public void onAdLoaded(@NonNull CacheEvent cacheEvent, @Nullable CacheError cacheError) {
+
+    }
+
+    @Override
+    public void onAdRequestedToShow(@NonNull ShowEvent showEvent) {
+
+    }
+
+    @Override
+    public void onAdShown(@NonNull ShowEvent showEvent, @Nullable ShowError showError) {
+
+    }
+
+    @Override
+    public void onAdClicked(@NonNull ClickEvent clickEvent, @Nullable ClickError clickError) {
+
+    }
+
+    @Override
+    public void onImpressionRecorded(@NonNull ImpressionEvent impressionEvent) {
+
+    }
+}, mediation);
+chartboostInterstitial.cache();
+
 ```
-Cache an interstitial with a location argument which is location or in other words name for the impression stored internally in the SDK.
+Create and cache an interstitial ad object.
 
 
 ## Show Interstitial
 ```
-public static void showInterstitial(final String location)
+chartboostInterstitial.show();
+
 ```
-Load an interstitial with a location argument. Even if the interstitial is already cached, it is shown asynchronously.
+Show an interstitial ad object.
 
 ## Cache Rewarded video
 ```
-public static void cacheRewardedVideo(final String location)
+Rewarded chartboostRewarded = new Rewarded("start", new RewardedCallback() {
+    @Override
+    public void onRewardEarned(@NonNull RewardEvent rewardEvent) {
+
+    }
+
+    @Override
+    public void onAdDismiss(@NonNull DismissEvent dismissEvent) {
+
+    }
+
+    @Override
+    public void onAdLoaded(@NonNull CacheEvent cacheEvent, @Nullable CacheError cacheError) {
+
+    }
+
+    @Override
+    public void onAdRequestedToShow(@NonNull ShowEvent showEvent) {
+
+    }
+
+    @Override
+    public void onAdShown(@NonNull ShowEvent showEvent, @Nullable ShowError showError) {
+
+    }
+
+    @Override
+    public void onAdClicked(@NonNull ClickEvent clickEvent, @Nullable ClickError clickError) {
+
+    }
+
+    @Override
+    public void onImpressionRecorded(@NonNull ImpressionEvent impressionEvent) {
+
+    }
+}, mediation);
+chartboostRewarded.cache();
+
 ```
-Cache rewarded interstitial with a default location argument or in other words name for the impression stored internally in the SDK.
+Create and cache rewarded ad object.
 
 
-## Show Rewarded video 
+## Show Rewarded video
 ```
-public static void showRewardedVideo(final String location)
+chartboostRewarded.show();
+
 ```
-Load rewarded interstitial with a default location argument. Even if the rewarded interstitial is already cached, it is shown asynchronously.
+Show a rewarded ad object.
 
 ## Banners
 To create new banner it is possible to do it in the xml layout file.
 ```
-<com.chartboost.sdk.ChartboostBanner
-            xmlns:chartboost="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/example_banner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            chartboost:location="start"
-            chartboost:size="STANDARD" />
+Banner chartboostBanner = new Banner(this, "start", Banner.BannerSize.STANDARD, new BannerCallback() {
+    @Override
+    public void onAdLoaded(@NonNull CacheEvent cacheEvent, @Nullable CacheError cacheError) {
+
+    }
+
+    @Override
+    public void onAdRequestedToShow(@NonNull ShowEvent showEvent) {
+
+    }
+
+    @Override
+    public void onAdShown(@NonNull ShowEvent showEvent, @Nullable ShowError showError) {
+
+    }
+
+    @Override
+    public void onAdClicked(@NonNull ClickEvent clickEvent, @Nullable ClickError clickError) {
+
+    }
+
+    @Override
+    public void onImpressionRecorded(@NonNull ImpressionEvent impressionEvent) {
+
+    }
+}, mediation);
+
 ```
 
 
 to cache the ad
 ```
-chartboostBanner?.cache()
+chartboostBanner.cache();
+
 ```
 
 and show to make the ad visible
 ```
-chartboostBanner?.show()
+chartboostBanner.show();
+
 ```
 
 and at the end of the activity lifecycle developer should detach Banner from the view and destroy the object. In order to do so, use:
 ```
-chartboostBanner?.detachBanner()
+chartboostBanner.detachBanner();
+
 ```
