@@ -33,6 +33,7 @@ android {
         applicationId "com.chartboost.sdk.sample"
         minSdkVersion 16
         targetSdkVersion 32
+        multiDexEnabled true
         versionCode 11
         versionName "1.5"
     }
@@ -52,6 +53,7 @@ android {
 
 dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "com.google.android.material:material:1.6.1"
