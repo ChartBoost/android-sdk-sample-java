@@ -42,7 +42,9 @@
         <activity
             android:name=".apps.AppsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-
+        <activity
+          android:name=".consent.ConsentSettings"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
