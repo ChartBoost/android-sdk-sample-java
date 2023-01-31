@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ads.Interstitial;
 import com.chartboost.sdk.callbacks.InterstitialCallback;
 import com.chartboost.sdk.events.CacheError;
@@ -35,7 +37,7 @@ public class InterstitialSample extends BaseSample implements InterstitialCallba
         chartboostInterstitial = new Interstitial("start", this, null);
 
         title = (TextView) findViewById(R.id.title);
-        title.setText("Interstitial");
+        title.setText("Interstitial: ");
 
         logTextView = (TextView) findViewById(R.id.logText);
         logTextView.setText(logTextView.getText(), TextView.BufferType.EDITABLE);
@@ -74,6 +76,8 @@ public class InterstitialSample extends BaseSample implements InterstitialCallba
 
             }
         });
+        addToUILog("Chartboost version: "+ Chartboost.getSDKVersion());
+        addToUILog("Bidder token: "+ Chartboost.getBidderToken());
     }
 
     private void onLocationAdapterChange(AdapterView<?> parentView, int position) {

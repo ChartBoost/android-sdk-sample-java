@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ads.Rewarded;
 import com.chartboost.sdk.callbacks.RewardedCallback;
 import com.chartboost.sdk.events.CacheError;
@@ -74,6 +76,8 @@ public class RewardedSample extends BaseSample implements RewardedCallback {
 
             }
         });
+        addToUILog("Chartboost version: "+ Chartboost.getSDKVersion());
+        addToUILog("Bidder token: "+ Chartboost.getBidderToken());
     }
 
     private void onLocationAdapterChange(AdapterView<?> parentView, int position) {
