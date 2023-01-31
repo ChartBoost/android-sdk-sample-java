@@ -35,7 +35,7 @@ android {
         targetSdkVersion 33
         multiDexEnabled true
         versionCode 11
-        versionName "1.5"
+        versionName "9.2.0"
     }
 
     buildTypes {
