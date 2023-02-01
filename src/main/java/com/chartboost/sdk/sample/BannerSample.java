@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ads.Banner;
 import com.chartboost.sdk.callbacks.BannerCallback;
 import com.chartboost.sdk.events.CacheError;
@@ -79,6 +80,8 @@ public class BannerSample extends BaseSample implements BannerCallback {
         });
 
         bannerHolder.addView(chartboostBanner);
+        addToUILog("Chartboost version: "+ Chartboost.getSDKVersion());
+        addToUILog("Bidder token: "+ Chartboost.getBidderToken());
     }
 
     @Override
