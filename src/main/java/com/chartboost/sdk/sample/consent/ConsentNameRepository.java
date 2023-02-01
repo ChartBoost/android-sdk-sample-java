@@ -11,29 +11,26 @@ import java.util.Set;
 
 public class ConsentNameRepository {
     private static final String PREFS_KEY_CONSENT_SETTINGS = "consent_setting";
-
-    private final Context context;
     private final Type gsonType = new TypeToken<Set<String>>() {}.getType();
 
-    public ConsentNameRepository(Context context) {
-        this.context = context;
+    public ConsentNameRepository() {
     }
 
-    public void save(DataUseConsent consent) {
-        Set<String> names = load();
+    public void save(Context context, DataUseConsent consent) {
+        Set<String> names = load(context);
         names.add(consent.getPrivacyStandard());
         String json = new Gson().toJson(names);
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREFS_KEY_CONSENT_SETTINGS, json).apply();
     }
 
-    public void remove(DataUseConsent consent) {
-        Set<String> names = load();
+    public void remove(Context context, DataUseConsent consent) {
+        Set<String> names = load(context);
         names.remove(consent.getPrivacyStandard());
         String json = new Gson().toJson(names);
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREFS_KEY_CONSENT_SETTINGS, json).apply();
     }
 
-    public Set<String> load() {
+    public Set<String> load(Context context) {
         String json = PreferenceManager.getDefaultSharedPreferences(context).getString(PREFS_KEY_CONSENT_SETTINGS, "");
         Set<String> data = new Gson().fromJson(json, gsonType);
         if (data == null) {

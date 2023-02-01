@@ -36,19 +36,26 @@ public class ConsentAdapter extends RecyclerView.Adapter<ConsentViewHolder> {
         holder.getStandardNameText().setText(data.getPrivacyStandard());
         String dataConsent = data.getConsent().toString();
         String consentTypeString = "";
-        if (data.getPrivacyStandard().equals(GDPR.GDPR_STANDARD)) {
-            GDPR.GDPR_CONSENT value = GDPR.GDPR_CONSENT.fromValue(dataConsent);
-            if (value != null) {
-                consentTypeString = ""+value.name()+" value: "+data.getConsent();
-            }
-        } else if (data.getPrivacyStandard().equals(CCPA.CCPA_STANDARD)) {
-            CCPA.CCPA_CONSENT value = CCPA.CCPA_CONSENT.fromValue(dataConsent);
-            if (value != null) {
-                consentTypeString = ""+value.name()+" value: "+data.getConsent();
-            }
-        } else {
-            consentTypeString = data.getConsent().toString();
+        String privacyStandard = data.getPrivacyStandard();
+
+        switch (privacyStandard) {
+            case GDPR.GDPR_STANDARD:
+                GDPR.GDPR_CONSENT gdprConsent = GDPR.GDPR_CONSENT.fromValue(dataConsent);
+                if (gdprConsent != null) {
+                    consentTypeString = ""+gdprConsent.name()+" value: "+data.getConsent();
+                }
+                break;
+            case CCPA.CCPA_STANDARD:
+                CCPA.CCPA_CONSENT ccpaConsent = CCPA.CCPA_CONSENT.fromValue(dataConsent);
+                if (ccpaConsent != null) {
+                    consentTypeString = ""+ccpaConsent.name()+" value: "+data.getConsent();
+                }
+                break;
+            default:
+                consentTypeString = data.getConsent().toString();
+                break;
         }
+
         holder.getConsentTypeText().setText(consentTypeString);
         holder.getRemoveBtn().setOnClickListener(v -> removeCallback.removeConsent(data));
     }

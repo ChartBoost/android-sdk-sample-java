@@ -13,6 +13,7 @@ import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.privacy.model.CCPA;
 import com.chartboost.sdk.privacy.model.COPPA;
 import com.chartboost.sdk.privacy.model.Custom;
+import com.chartboost.sdk.privacy.model.DataUseConsent;
 import com.chartboost.sdk.privacy.model.GDPR;
 import com.chartboost.sdk.privacy.model.GenericDataUseConsent;
 import com.chartboost.sdk.sample.consent.AddConsentDialog;
@@ -37,7 +38,6 @@ public class SelectionActivity extends AppCompatActivity  {
         initSDK(ids);
 
         //set sdk settings
-        setupSdkWithCustomSettings(sharedPreferences);
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
@@ -79,10 +79,6 @@ public class SelectionActivity extends AppCompatActivity  {
         return ids;
     }
 
-    private void setupSdkWithCustomSettings(SharedPreferences sharedPreferences) {
-
-    }
-
     private void createOnClickListener(int buttonID, BaseSample.ImpressionType type) {
         findViewById(buttonID).setOnClickListener(new ImpressionClickListener(type));
     }
@@ -95,28 +91,30 @@ public class SelectionActivity extends AppCompatActivity  {
 
     private void displayConsentInLogs(AddConsentDialog.CONSENT_TYPE consentType) {
         GenericDataUseConsent dataUseConsent = null;
-        if (consentType == AddConsentDialog.CONSENT_TYPE.GDPR) {
-            try {
-                dataUseConsent = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
-            } catch (Exception e) {
-                Log.e("Chartboost", "Cannot parse consent to GDPR: "+ e);
-            }
-        }
-
-        if (consentType == AddConsentDialog.CONSENT_TYPE.CCPA) {
-            try {
-                dataUseConsent = (CCPA) Chartboost.getDataUseConsent(SelectionActivity.this, CCPA.CCPA_STANDARD);
-            } catch (Exception e) {
-                Log.e("Chartboost", "Cannot parse consent to CCPA: "+ e);
-            }
-        }
-
-        if (consentType == AddConsentDialog.CONSENT_TYPE.COPPA) {
-            try {
-                dataUseConsent = (COPPA) Chartboost.getDataUseConsent(SelectionActivity.this, COPPA.COPPA_STANDARD);
-            } catch (Exception e) {
-                Log.e("Chartboost", "Cannot parse consent to COPPA: "+ e);
-            }
+        switch (consentType) {
+            case GDPR:
+                try {
+                    dataUseConsent = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to GDPR: "+ e);
+                }
+                break;
+            case CCPA:
+                try {
+                    dataUseConsent = (CCPA) Chartboost.getDataUseConsent(SelectionActivity.this, CCPA.CCPA_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to CCPA: "+ e);
+                }
+                break;
+            case COPPA:
+                try {
+                    dataUseConsent = (COPPA) Chartboost.getDataUseConsent(SelectionActivity.this, COPPA.COPPA_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to COPPA: "+ e);
+                }
+                break;
+            case CUSTOM:
+                break;
         }
 
         if(dataUseConsent != null) {

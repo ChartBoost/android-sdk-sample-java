@@ -12,15 +12,18 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import com.chartboost.sdk.privacy.model.CCPA;
 import com.chartboost.sdk.privacy.model.COPPA;
 import com.chartboost.sdk.privacy.model.Custom;
 import com.chartboost.sdk.privacy.model.DataUseConsent;
 import com.chartboost.sdk.privacy.model.GDPR;
 import com.chartboost.sdk.sample.R;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class AddConsentDialog extends DialogFragment {
 
     private final List<String> gdprConsents = Arrays.asList(GDPR.GDPR_CONSENT.BEHAVIORAL.name(), GDPR.GDPR_CONSENT.NON_BEHAVIORAL.name());
     private final List<String> ccpaConsents = Arrays.asList(CCPA.CCPA_CONSENT.OPT_IN_SALE.name(), CCPA.CCPA_CONSENT.OPT_OUT_SALE.name());
-    private final List<String> coppaConsents = Arrays.asList( "true", "false");
+    private final List<String> coppaConsents = Arrays.asList("true", "false");
 
     @Nullable
     @Override
@@ -92,68 +95,73 @@ public class AddConsentDialog extends DialogFragment {
         String consent = autocompleteConsent.getText().toString();
         DataUseConsent dataUseConsent = null;
 
-        if (consentType == CONSENT_TYPE.GDPR) {
-            if (GDPR.GDPR_CONSENT.BEHAVIORAL.name().equals(consent)) {
-                dataUseConsent = new GDPR(GDPR.GDPR_CONSENT.BEHAVIORAL);
-            } else if (GDPR.GDPR_CONSENT.NON_BEHAVIORAL.name().equals(consent)) {
-                dataUseConsent = new GDPR(GDPR.GDPR_CONSENT.NON_BEHAVIORAL);
-            }
-        } else if (consentType == CONSENT_TYPE.CCPA) {
-            if (CCPA.CCPA_CONSENT.OPT_IN_SALE.name().equals(consent)) {
-                dataUseConsent = new CCPA(CCPA.CCPA_CONSENT.OPT_IN_SALE);
-            } else if (CCPA.CCPA_CONSENT.OPT_OUT_SALE.name().equals(consent)) {
-                dataUseConsent = new CCPA(CCPA.CCPA_CONSENT.OPT_OUT_SALE);
-            }
-        } else if (consentType == CONSENT_TYPE.COPPA) {
-            if ("true".equals(consent)) {
-                dataUseConsent = new COPPA(true);
-            } else if ("false".equals(consent)) {
-                dataUseConsent = new COPPA(false);
-            }
-        } else {
-            consent = editConsent.getText().toString();
-            dataUseConsent = new Custom(standard, consent);
-        }
-
-        if (dataUseConsent == null) {
-            Toast.makeText(getContext(), "Consent creation failed. Wrong standard or consent name.", Toast.LENGTH_SHORT).show();
-        } else {
-            if (!TextUtils.isEmpty(dataUseConsent.getPrivacyStandard()) && !TextUtils.isEmpty(dataUseConsent.getConsent().toString())) {
-                ConsentDialogListener listener = ((ConsentDialogListener) getActivity());
-                if(listener != null) {
-                    listener.createConsent(dataUseConsent);
-                } else {
-                    Toast.makeText(getContext(), "Consent creation failed.", Toast.LENGTH_SHORT).show();
+        switch (consentType) {
+            case GDPR:
+                if (GDPR.GDPR_CONSENT.BEHAVIORAL.name().equals(consent)) {
+                    dataUseConsent = new GDPR(GDPR.GDPR_CONSENT.BEHAVIORAL);
+                } else if (GDPR.GDPR_CONSENT.NON_BEHAVIORAL.name().equals(consent)) {
+                    dataUseConsent = new GDPR(GDPR.GDPR_CONSENT.NON_BEHAVIORAL);
                 }
-            } else {
-                Toast.makeText(getContext(), "Consent creation failed. Wrong standard or consent name.", Toast.LENGTH_SHORT).show();
-            }
+                break;
+            case CCPA:
+                if (CCPA.CCPA_CONSENT.OPT_IN_SALE.name().equals(consent)) {
+                    dataUseConsent = new CCPA(CCPA.CCPA_CONSENT.OPT_IN_SALE);
+                } else if (CCPA.CCPA_CONSENT.OPT_OUT_SALE.name().equals(consent)) {
+                    dataUseConsent = new CCPA(CCPA.CCPA_CONSENT.OPT_OUT_SALE);
+                }
+                break;
+            case COPPA:
+                if ("true".equals(consent)) {
+                    dataUseConsent = new COPPA(true);
+                } else if ("false".equals(consent)) {
+                    dataUseConsent = new COPPA(false);
+                }
+                break;
+            default:
+                consent = editConsent.getText().toString();
+                dataUseConsent = new Custom(standard, consent);
+                break;
         }
 
+        ConsentDialogListener listener = ((ConsentDialogListener) getActivity());
+        if (dataUseConsent == null || listener == null || TextUtils.isEmpty(dataUseConsent.getPrivacyStandard()) || TextUtils.isEmpty(dataUseConsent.getConsent().toString())) {
+            dismissWithError("Consent creation failed!");
+            return;
+        }
+
+        listener.createConsent(dataUseConsent);
+        dismiss();
+    }
+
+    private void dismissWithError(String errorMsg) {
+        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
         dismiss();
     }
 
     private void switchView() {
-        if (consentType == CONSENT_TYPE.GDPR) {
-            editStandard.setVisibility(View.GONE);
-            editConsent.setVisibility(View.GONE);
-            autocompleteConsent.setVisibility(View.VISIBLE);
-            setAutoCompleteAdapter(gdprConsents);
-        } else if (consentType == CONSENT_TYPE.CCPA) {
-            editStandard.setVisibility(View.GONE);
-            editConsent.setVisibility(View.GONE);
-            autocompleteConsent.setVisibility(View.VISIBLE);
-            setAutoCompleteAdapter(ccpaConsents);
-        } else if (consentType == CONSENT_TYPE.COPPA) {
-            editStandard.setVisibility(View.GONE);
-            editConsent.setVisibility(View.GONE);
-            autocompleteConsent.setVisibility(View.VISIBLE);
-            setAutoCompleteAdapter(coppaConsents);
-        } else {
-            editStandard.setVisibility(View.VISIBLE);
-            editConsent.setVisibility(View.VISIBLE);
-            autocompleteConsent.setVisibility(View.GONE);
+        switch (consentType) {
+            case GDPR:
+                switchViewGone(gdprConsents);
+                break;
+            case CCPA:
+                switchViewGone(ccpaConsents);
+                break;
+            case COPPA:
+                switchViewGone(coppaConsents);
+                break;
+            default:
+                editStandard.setVisibility(View.VISIBLE);
+                editConsent.setVisibility(View.VISIBLE);
+                autocompleteConsent.setVisibility(View.GONE);
+                break;
         }
+    }
+
+    public void switchViewGone(List<String> data) {
+        editStandard.setVisibility(View.GONE);
+        editConsent.setVisibility(View.GONE);
+        autocompleteConsent.setVisibility(View.VISIBLE);
+        setAutoCompleteAdapter(data);
     }
 
     private void setAutoCompleteAdapter(List<String> data) {
@@ -162,14 +170,7 @@ public class AddConsentDialog extends DialogFragment {
         autocompleteConsent.showDropDown();
     }
 
-
-    public static AddConsentDialog newInstance() {
-        return new AddConsentDialog();
-    }
-
     public enum CONSENT_TYPE {
         GDPR, CCPA, COPPA, CUSTOM
     }
 }
-
-
