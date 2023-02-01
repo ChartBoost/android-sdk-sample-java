@@ -24,7 +24,7 @@ public class ConsentSettings extends AppCompatActivity implements ConsentDialogL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.apps_activity);
+        setContentView(R.layout.consent_activity);
 
         RecyclerView consentsList = findViewById(R.id.consents_list);
         Button addConsentBtn = findViewById(R.id.add_consent_btn);
