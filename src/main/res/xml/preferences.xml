@@ -9,4 +9,14 @@
             android:targetPackage="com.chartboost.sdk.sample"
             android:targetClass="com.chartboost.sdk.sample.apps.AppsActivity"/>
     </Preference>
+
+    <Preference
+      android:title="Consent"
+      android:summary="Set privacy consent"
+      android:id="@+id/consentPreference">
+        <intent
+          android:action="com.chartboost.sdk.sample.consent.ConsentSettings"
+          android:targetPackage="com.chartboost.sdk.sample"
+          android:targetClass="com.chartboost.sdk.sample.consent.ConsentSettings" />
+    </Preference>
 </PreferenceScreen>

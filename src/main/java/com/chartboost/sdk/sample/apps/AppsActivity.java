@@ -39,8 +39,8 @@ public class AppsActivity extends AppCompatActivity implements AppsAdapterListen
     }
 
     private void init() {
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AppsAdapter(createListOfApps(), this, this);
         recyclerView.setAdapter(adapter);

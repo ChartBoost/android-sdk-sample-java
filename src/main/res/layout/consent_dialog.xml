@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/consent_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new consent" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/consent_dialog_gdpr_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GDPR"
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/consent_dialog_ccpa_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/consent_dialog_gdpr_radio"
+                android:text="CCPA"
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/consent_dialog_coppa_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/consent_dialog_ccpa_radio"
+                android:onClick="onRadioButtonClicked"
+                android:text="COPPA" />
+
+            <RadioButton
+                android:id="@+id/consent_dialog_custom_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/consent_dialog_gdpr_radio"
+                android:checked="true"
+                android:text="Custom"
+                android:onClick="onRadioButtonClicked" />
+        </RelativeLayout>
+    </RadioGroup>
+
+    <AutoCompleteTextView
+        android:id="@+id/consent_dialog_autocomplete_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Consent"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/consent_dialog_edit_standard"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Privacy standard"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/consent_dialog_edit_consent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Consent"
+        android:inputType="text" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/consent_dialog_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add consent" />
+
+        <Button
+            android:id="@+id/consent_dialog_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/consent_dialog_add_btn"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/consent_dialog_add_btn"
+            android:text="Cancel" />
+
+    </RelativeLayout>
+
+</LinearLayout>

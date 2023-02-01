@@ -1,25 +1,32 @@
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/standardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_margin="3dp"
-        android:id="@+id/name"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:id="@+id/id"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:id="@+id/signature"/>
+        android:text="standard" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/consentType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_below="@id/standardName"
+        android:text="consent" />
+
+    <ImageButton
+        android:id="@+id/consent_remove_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_delete" />
+</RelativeLayout>
