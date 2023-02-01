@@ -37,7 +37,7 @@ public class InterstitialSample extends BaseSample implements InterstitialCallba
         chartboostInterstitial = new Interstitial("start", this, null);
 
         title = (TextView) findViewById(R.id.title);
-        title.setText("Interstitial: ");
+        title.setText("Interstitial");
 
         logTextView = (TextView) findViewById(R.id.logText);
         logTextView.setText(logTextView.getText(), TextView.BufferType.EDITABLE);
