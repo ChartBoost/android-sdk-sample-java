@@ -10,8 +10,6 @@ import androidx.preference.PreferenceFragmentCompat;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    private static final String TAG = "Settings Activity";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +17,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(android.R.id.content, new MyPreferenceFragment())
                 .commit();
-        //getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
     }
 
     public static class MyPreferenceFragment extends PreferenceFragmentCompat {

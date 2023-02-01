@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.chartboost:chartboost-sdk:9.2.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation ("com.google.android.gms:play-services-base:$project.ext.googlePlayServicesVersion"){
         exclude group: 'com.android.support'
     }

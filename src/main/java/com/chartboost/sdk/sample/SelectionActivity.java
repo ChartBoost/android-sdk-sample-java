@@ -11,7 +11,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.privacy.model.CCPA;
+import com.chartboost.sdk.privacy.model.COPPA;
+import com.chartboost.sdk.privacy.model.Custom;
+import com.chartboost.sdk.privacy.model.DataUseConsent;
 import com.chartboost.sdk.privacy.model.GDPR;
+import com.chartboost.sdk.privacy.model.GenericDataUseConsent;
+import com.chartboost.sdk.sample.consent.AddConsentDialog;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SelectionActivity extends AppCompatActivity  {
@@ -33,7 +38,6 @@ public class SelectionActivity extends AppCompatActivity  {
         initSDK(ids);
 
         //set sdk settings
-        setupSdkWithCustomSettings(sharedPreferences);
         createOnClickListener(R.id.interstitialButton, BaseSample.ImpressionType.INTERSTITIAL);
         createOnClickListener(R.id.rewardedButton, BaseSample.ImpressionType.REWARDED);
         createOnClickListener(R.id.bannerButton, BaseSample.ImpressionType.BANNER);
@@ -49,7 +53,7 @@ public class SelectionActivity extends AppCompatActivity  {
         Chartboost.startWithAppId(getApplicationContext(), appId, appSignature, startError -> {
             if (startError == null) {
                 Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK is initialized", Toast.LENGTH_SHORT).show();
-                displayGDPRConsentInLogs();
+                checkKnownConsentStatus();
             } else {
                 Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK initialized with error: "+startError.getCode().name(), Toast.LENGTH_SHORT).show();
             }
@@ -75,33 +79,48 @@ public class SelectionActivity extends AppCompatActivity  {
         return ids;
     }
 
-    private void setupSdkWithCustomSettings(SharedPreferences sharedPreferences) {
-
-    }
-
     private void createOnClickListener(int buttonID, BaseSample.ImpressionType type) {
         findViewById(buttonID).setOnClickListener(new ImpressionClickListener(type));
     }
 
-    private void displayGDPRConsentInLogs() {
-        GDPR gdpr = null;
-        try {
-            gdpr = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
-        } catch (Exception e) {
-            Log.e("Chartboost", "Cannot parse consent to GDPR: "+e.toString());
+    private void checkKnownConsentStatus() {
+        displayConsentInLogs(AddConsentDialog.CONSENT_TYPE.GDPR);
+        displayConsentInLogs(AddConsentDialog.CONSENT_TYPE.CCPA);
+        displayConsentInLogs(AddConsentDialog.CONSENT_TYPE.COPPA);
+    }
+
+    private void displayConsentInLogs(AddConsentDialog.CONSENT_TYPE consentType) {
+        GenericDataUseConsent dataUseConsent = null;
+        switch (consentType) {
+            case GDPR:
+                try {
+                    dataUseConsent = (GDPR) Chartboost.getDataUseConsent(SelectionActivity.this, GDPR.GDPR_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to GDPR: "+ e);
+                }
+                break;
+            case CCPA:
+                try {
+                    dataUseConsent = (CCPA) Chartboost.getDataUseConsent(SelectionActivity.this, CCPA.CCPA_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to CCPA: "+ e);
+                }
+                break;
+            case COPPA:
+                try {
+                    dataUseConsent = (COPPA) Chartboost.getDataUseConsent(SelectionActivity.this, COPPA.COPPA_STANDARD);
+                } catch (Exception e) {
+                    Log.e("Chartboost", "Cannot parse consent to COPPA: "+ e);
+                }
+                break;
+            case CUSTOM:
+                break;
         }
 
-        if(gdpr != null) {
-            String consentValue = (String) gdpr.getConsent();
-            if(GDPR.GDPR_CONSENT.BEHAVIORAL.getValue().equals(consentValue)) {
-                Log.e("Chartboost", "GDPR is BEHAVIORAL");
-            } else if(GDPR.GDPR_CONSENT.NON_BEHAVIORAL.getValue().equals(consentValue)){
-                Log.e("Chartboost", "GDPR is NON_BEHAVIORAL");
-            } else {
-                Log.e("Chartboost", "GDPR is INVALID CONSENT");
-            }
+        if(dataUseConsent != null) {
+            Log.e("Chartboost", dataUseConsent.getPrivacyStandard()+" is "+ dataUseConsent.getConsent());
         } else {
-            Log.e("Chartboost", "GDPR is not set");
+            Log.e("Chartboost", consentType+" is not set");
         }
     }
 
