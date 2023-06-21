@@ -55,6 +55,10 @@ public class SelectionActivity extends AppCompatActivity  {
                 Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK is initialized", Toast.LENGTH_SHORT).show();
                 checkKnownConsentStatus();
             } else {
+                Exception initException = startError.getException();
+                if (initException != null) {
+                    Log.e("Test", "initSDK exception: "+initException+" init error code: "+startError.getCode());
+                }
                 Toast.makeText(SelectionActivity.this.getApplicationContext(), "SDK initialized with error: "+startError.getCode().name(), Toast.LENGTH_SHORT).show();
             }
         });
