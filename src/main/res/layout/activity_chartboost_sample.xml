@@ -11,15 +11,6 @@
         android:orientation="horizontal"
         android:id="@+id/header">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:id="@+id/backButton"
-            android:layout_centerVertical="true"
-            android:textColor="@color/green80"
-            android:background="@android:color/transparent"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
