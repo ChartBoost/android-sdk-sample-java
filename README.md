@@ -13,10 +13,13 @@ Chartboost SDK is available as an AAR via Maven Central; to use it, add the foll
 ```
 repositories {
     mavenCentral()
+    maven {
+        url 'https://cboost.jfrog.io/artifactory/chartboost-ads/'
+    }
 }
 
 dependencies {
-    implementation 'com.chartboost:chartboost-sdk:9.0.0'
+    implementation 'com.chartboost:chartboost-sdk:9.5.0'
 }
 ```
 
