@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.chartboost:chartboost-sdk:9.5.0'
+    implementation 'com.chartboost:chartboost-sdk:9.6.0'
 }
 ```
 
